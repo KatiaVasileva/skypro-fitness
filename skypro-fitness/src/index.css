@@ -2,74 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255 255 255 / 87%);
-  background-color: #242424;
-  font-synthesis: none;
-  text-rendering: optimizelegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #fff;
+@layer base {
+  html, body {
+    @apply w-full h-full font-sans bg-light-gray m-0 p-0 box-border;
   }
 
-  a:hover {
-    color: #747bff;
+  #root {
+    @apply max-w-80 sm:max-w-3xl lg:max-w-6xl flex content-center font-normal my-0 mx-auto py-8 px-0;
   }
-  
-  button {
-    background-color: #f9f9f9;
+
+  h1 {
+    @apply text-2xl lg:text-5xl font-semibold text-black;
   }
+
+  a {
+    @apply no-underline cursor-pointer;
+  }
+
+  ul li {
+    @apply list-none;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-3xl px-4 md:px-6 py-2 md:py-4 text-lg text-black font-normal bg-green hover:bg-light-green cursor-pointer;
+  }
+
 }
