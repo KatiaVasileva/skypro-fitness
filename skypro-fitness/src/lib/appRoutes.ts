@@ -4,6 +4,7 @@ export const AppRoutes = {
     MAIN: "/",
     COURSE: "/course",
     WORKOUT: "/workout",
+    ADDPROGRESS:"/workout/add",
     EXIT: "/exit",
     NOT_FOUND: "*"
   };
