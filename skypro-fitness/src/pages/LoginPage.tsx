@@ -1,7 +1,11 @@
+import { Login } from "../components/Login/Login";
+
 export default function LoginPage() {
     return (
       <>
-        <h1 className="text-10xl font-bold underline">Login Page</h1>
+      <div className="w-full h-full overflow-x-hidden">
+        <Login />
+      </div>
       </>
     );
-  }
+  };

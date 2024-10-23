@@ -1,7 +1,11 @@
+import Register from "../components/Register/Register";
+
 export default function RegisterPage() {
     return (
       <>
-        <h1 className="text-10xl font-bold underline">Register Page</h1>
+         <div className="w-full h-full overflow-x-hidden bg-[#eaeef6]">
+        <Register />
+      </div>
       </>
     );
   }
