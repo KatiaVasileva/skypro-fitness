@@ -1,5 +1,5 @@
 // Типы данных пользователя
-import { RegType, UserType } from "../types/user";
+import { RegType } from "../types/user";
 import { app, auth } from "../lib/firebaseConfig"
 import { 
     createUserWithEmailAndPassword, 
@@ -32,11 +32,6 @@ export async function regUser({
     );
     const uid = userCredential.user.uid;
 
-    // Обновляем профиль пользователя, чтобы установить displayName
-    // await updateProfile(userCredential.user, {
-    //   displayName: username,
-    // });
-
     // Сохраняем информацию о пользователе в Realtime Database  
     await set(ref(database, "users/" + uid), {
       uid: uid,
@@ -56,35 +51,38 @@ export async function regUser({
     }
   }
 }
-
-export const loginUser = async (credentials: LoginCredentials): Promise<UserType> => {
+export async function loginUser(credentials: LoginCredentials) {
   try {
-    // Аутентифицируем пользователя через Firebase
-    const userCredential = await signInWithEmailAndPassword(auth, credentials.login, credentials.password);
-    const uid = userCredential.user.uid;
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      credentials.login,
+      credentials.password
+    );
+    const uid = userCredentials.user.uid;
+    const snapshot = await get(child(ref(database), `users/${uid}`));
 
-    const response = await fetch(`https://fitness-cee19-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },      
-    });
-
-    if (!response.ok) {
-      throw new Error("Неверные данные для входа");
+    if (!snapshot.exists()) {
+      throw new Error("Пользовательские данные не найдены.");
     }
 
-    const userData: UserType = await response.json();
-    return userData;
+    return snapshot.val();
   } catch (error) {
-    console.error("Ошибка при входе:", error);
+    if (error instanceof Error) {
+      console.error("Ошибка при входе:", error.message);
+      throw new Error(error.message);
+    }
     throw error;
   }
-};
+}
 
 export async function handlePasswordReset(email: string) {
+  const actionCodeSettings = {
+    url: "https://fitness-cee19-default-rtdb.europe-west1.firebasedatabase.app/newpassword",
+    handleCodeInApp: true,
+  };
+
   try {
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(auth, email, actionCodeSettings);
     console.log(`Ссылка для восстановления пароля отправлена на ${email}`);
   } catch (error) {
     console.error("Ошибка при отправке письма для сброса пароля:", error);

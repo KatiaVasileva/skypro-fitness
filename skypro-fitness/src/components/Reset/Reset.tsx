@@ -26,10 +26,10 @@ const Reset = ({ email }: ResetProps) => {
   }, [email]);
 
   return (
-    <div className="w-full h-full overflow-x-hidden bg-[#eaeef6]">
+    <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0">
       <div className="block w-full min-h-screen mx-auto my-0">
-        <div className="w-full h-screen flex items-center justify-center bg-[#eaeef6]">
-          <div className="bg-white w-[360px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[60px] py-[50px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5] flex flex-col items-center">
+        <div className="flex fixed inset-0 items-center justify-center z-50 ">
+          <div className="flex bg-white w-[360px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[60px] py-[50px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5] flex flex-col items-center">
             <div className="pb-[50px]">
               <img src="/logoModal.png" alt="logo_modal" />
             </div>

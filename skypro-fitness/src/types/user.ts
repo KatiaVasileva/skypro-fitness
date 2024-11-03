@@ -1,6 +1,6 @@
 import { WorkoutType } from "./workout";
 
-export type UserType = {
+export type User = {
   uid: string;
   email: string;
   name: string;
@@ -17,3 +17,4 @@ export type RegType = {
   email: string;
   password: string;
 };
+
