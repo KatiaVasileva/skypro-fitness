@@ -18,9 +18,7 @@ type CoursesContextData = {
 export const CoursesContext = createContext<CoursesContextData | null>(null);
 
 export default function CoursesProvider({ children }: CoursesProviderProps) {
-  const [courses, setCourses] = useState<Array<CourseType>>(
-    [] 
-  );
+  const [courses, setCourses] = useState<Array<CourseType>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
