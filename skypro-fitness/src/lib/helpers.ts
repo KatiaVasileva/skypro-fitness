@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { CourseType } from "../types/CourseType.type";
 
 export function saveUserToLocalStorage(user: User) {
   window.localStorage.setItem("user", JSON.stringify(user));
@@ -20,8 +21,6 @@ export function getUserFromLocalStorage() {
 export function removeUserFromLocalStorage() {
   window.localStorage.removeItem("user");
 }
-
-import { CourseType } from "../types/CourseType.type";
 
 export function saveCoursesToLocalStorage(courses: Array<CourseType>) {
   window.localStorage.setItem("courses", JSON.stringify(courses));
