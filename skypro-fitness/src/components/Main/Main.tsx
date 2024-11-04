@@ -14,7 +14,7 @@ function Main() {
     .catch(() => {
       console.log("Не удалось загрузить данные, попробуйте позже.");
     });
-  });
+  }, [setCourses]);
   
   return (
     <div className="container">
