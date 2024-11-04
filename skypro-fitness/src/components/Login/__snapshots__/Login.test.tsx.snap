@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component renders correctly 1`] = `
+<div>
+  <div
+    class="block w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0"
+  >
+    <div
+      class="flex fixed inset-0 items-center justify-center z-50 "
+    >
+      <div
+        class="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto"
+      >
+        <img
+          alt="logo_modal"
+          class="w-[220px] h-[35px] mx-auto"
+          src="public/logoModal.png"
+        />
+        <form
+          class="w-full flex flex-col items-center gap-[10px]"
+        >
+          <div
+            class="flex flex-col w-full mb-4 items-center gap-[10px]"
+          >
+            <input
+              class="w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              name="email"
+              placeholder="Логин"
+              type="email"
+              value=""
+            />
+            <input
+              class="w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              name="password"
+              placeholder="Пароль"
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            class="mt-[24px] flex flex-col w-full items-center gap-[10px]"
+          >
+            <button
+              class="bg-[#BCEC30] text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] hover:bg-[#C6FF00] border-none active:bg-black active:text-white"
+            >
+              Войти
+            </button>
+            <button
+              class="border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
+            >
+              Зарегистрироваться
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
