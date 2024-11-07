@@ -1,29 +1,52 @@
 import { useEffect, useState } from "react";
-import { handlePasswordReset } from "../../api/apiUser";
+import {  useNavigate } from "react-router-dom";
+import { EmailAuthProvider, getAuth, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { AppRoutes } from "../../lib/appRoutes";
+//import App from "../../App";
 
 type ResetProps = {
-  email: string | undefined; 
-};
+   email: string | undefined; 
+ };
 
 const Reset = ({ email }: ResetProps) => {
+  const navigate = useNavigate();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");  
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Вызов handlePasswordReset при монтировании компонента
-  useEffect(() => {
-    if (email) {
-      handlePasswordReset(email)
-        .then(() => {
-          setMessage(`Ссылка для восстановления пароля отправлена на ${email}`);
-        })
-        .catch((error) => {
-          setError("Ошибка при отправке письма для сброса пароля. Попробуйте снова.");
-          console.error("Ошибка:", error);
-        });
-    } else {
-      setError("Email не указан.");
+  const handleChangePassword = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      setError("Нет авторизации.");
+      return;
     }
-  }, [email]);
+
+    if (newPassword !== confirmPassword) {
+      setError("Пароли не совпадают");
+      return;
+    }
+
+    const credential = EmailAuthProvider.credential(email || "", currentPassword);
+      
+    try {
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+      setMessage("Пароль успешно изменен.");
+      setTimeout (() => {
+        navigate(AppRoutes.LOGIN);
+      }, 2000);
+    } catch (err) {
+      setError((err as Error).message ||"Ошибка при смене пароля. Попробуйте снова.");
+    }
+  };
+  
+  useEffect(() => {
+    setError("");
+  }, [currentPassword, newPassword, confirmPassword]);
 
   return (
     <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0">
@@ -45,6 +68,33 @@ const Reset = ({ email }: ResetProps) => {
                 </span>
               )}
             </div>
+            <input
+              type="password"
+              placeholder="Текущий пароль"
+              className="input-class"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Новый пароль"
+              className="input-class"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Повторите пароль"
+              className="input-class"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button
+              onClick={handleChangePassword}
+              className="btn-primary w-[280px] h-[52px] mt-8"
+            >
+              Подтвердить
+            </button>
           </div>
         </div>
       </div>

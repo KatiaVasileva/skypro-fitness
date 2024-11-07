@@ -2,10 +2,13 @@
 import { RegType } from "../types/user";
 import { app, auth } from "../lib/firebaseConfig"
 import { 
+  //confirmPasswordReset,
     createUserWithEmailAndPassword, 
-    sendPasswordResetEmail, 
+    //sendPasswordResetEmail, 
     signInWithEmailAndPassword, 
-    updatePassword } 
+    //updatePassword, 
+   //verifyPasswordResetCode
+   } 
   from "firebase/auth";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { FirebaseError } from "firebase/app";
@@ -75,28 +78,50 @@ export async function loginUser(credentials: LoginCredentials) {
   }
 }
 
-export async function handlePasswordReset(email: string) {
-  const actionCodeSettings = {
-    url: "https://fitness-cee19-default-rtdb.europe-west1.firebasedatabase.app/newpassword",
-    handleCodeInApp: true,
-  };
+// export async function handlePasswordReset(email: string) {
+//   const actionCodeSettings = {
+//     url: "https://fitness-cee19-default-rtdb.europe-west1.firebasedatabase.app/newpassword",
+//     handleCodeInApp: true,
+//   };
 
-  try {
-    await sendPasswordResetEmail(auth, email, actionCodeSettings);
-    console.log(`Ссылка для восстановления пароля отправлена на ${email}`);
-  } catch (error) {
-    console.error("Ошибка при отправке письма для сброса пароля:", error);
-  }
-}
+//   try {
+//     await sendPasswordResetEmail(auth, email, actionCodeSettings);
+//     console.log(`Ссылка для восстановления пароля отправлена на ${email}`);
+//   } catch (error) {
+//     console.error("Ошибка при отправке письма для сброса пароля:", error);
+//   }
+// }
 
-// Сменить пароль
-export async function changePassword(password: string) {
-  try {
-    if (!auth.currentUser) {
-      throw new Error("Нет авторизации");
-    }
-    await updatePassword(auth.currentUser, password);
-  } catch (error) {
-    if (error instanceof Error) throw new Error(error.message);
-  }
-}
+// // Проверка кода сброса
+// export const verifyResetCode = async (oobCode: string) => {
+//   try {
+//     const email = await verifyPasswordResetCode(auth, oobCode);
+//     return email; // возвращает email, чтобы убедиться в правильности кода
+//   } catch (error) {
+//     console.error("Неверный или истекший код сброса:", error);
+//     throw error;
+//   }
+// };
+
+// // Подтверждение кода и смена пароля
+// export const confirmNewPassword = async (oobCode: string, newPassword: string) => {
+//   try {
+//     await confirmPasswordReset(auth, oobCode, newPassword);
+//     return "Пароль успешно изменен.";
+//   } catch (error) {
+//     console.error("Ошибка при подтверждении пароля:", error);
+//     throw error;
+//   }
+// };
+
+// Смена пароля для авторизованных пользователей
+// export async function changePassword(password: string) {
+//   try {
+//     if (!auth.currentUser) {
+//       throw new Error("Нет авторизации");
+//     }
+//     await updatePassword(auth.currentUser, password);
+//   } catch (error) {
+//     if (error instanceof Error) throw new Error(error.message);
+//   }
+// }
