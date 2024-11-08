@@ -1,5 +1,6 @@
 import { User } from "firebase/auth";
 import { CourseType } from "../types/CourseType.type";
+import { WorkoutType } from "../types/WorkoutType.type";
 
 export function saveUserToLocalStorage(user: User) {
   window.localStorage.setItem("user", JSON.stringify(user));
@@ -42,4 +43,26 @@ export function getCoursesFromLocalStorage() {
 export function removeCoursesFromLocalStorage() {
   window.localStorage.removeItem("courses");
 }
+
+export function saveWorkoutsToLocalStorage(workouts: Array<WorkoutType>) {
+  window.localStorage.setItem("workouts", JSON.stringify(workouts));
+}
+
+export function getWorkoutsFromLocalStorage() {
+  try {
+    const workouts = window.localStorage.getItem("workouts");
+    if (workouts) {
+      return JSON.parse(workouts);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error);
+    }
+  }
+}
+
+export function removeWorkoutsFromLocalStorage() {
+  window.localStorage.removeItem("workouts");
+}
+
 

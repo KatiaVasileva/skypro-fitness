@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { AppRoutes } from "../../lib/appRoutes";
-import { useUserContext } from "../../hooks/useUserContext";
+import { useUserContext } from "../../../hooks/useUserContext";
+import { AppRoutes } from "../../../lib/appRoutes";
 
 export const MyProfile = ({setIsOpen} : {setIsOpen: (isOpen: boolean) => void}) => {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
 
   const handleMyProfileButton = () => {
-    navigate(AppRoutes.ACCOUNT_PAGE);
+    navigate(AppRoutes.ACCOUNT);
   };
 
   const handleLogoutButton = () => {
@@ -21,7 +21,7 @@ export const MyProfile = ({setIsOpen} : {setIsOpen: (isOpen: boolean) => void}) 
       <div className="block overflow-x-hidden absolute z-50 top-[70px] left-[-100px]">
         <div className="bg-white rounded-[30px] w-[266px] min-h-[258px] p-[30px] flex flex-col items-center shadow-md">
           <div className="mb-8 text-lg font-normal">
-            <h3 className="">{user ? user.email : ""}</h3>
+            <h3 className="text-center">{user ? user.displayName : ""}</h3>
             <p className="text-gray">{user ? user.email : ""}</p>
           </div>
 

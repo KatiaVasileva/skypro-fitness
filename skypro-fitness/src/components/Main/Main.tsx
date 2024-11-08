@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Card from "../Card/Card";
 import { getCourses } from "../../api/apiCourses";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
+import { saveCoursesToLocalStorage } from "../../lib/helpers";
 
 function Main() {
   const { courses, setCourses} = useCoursesContext();
@@ -9,6 +10,7 @@ function Main() {
   useEffect(() => {
     getCourses().then((allCourses) => {
       const courses = Object.values(allCourses);
+      saveCoursesToLocalStorage(courses);
       setCourses(courses);
     })
     .catch(() => {

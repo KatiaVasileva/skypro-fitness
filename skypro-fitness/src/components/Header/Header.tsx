@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../lib/appRoutes";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useState } from "react";
-import { MyProfile } from "../MyProfile/MyProfile";
+import { MyProfile } from "../popups/MyProfile/MyProfile";
 
 function Header() {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ function Header() {
           src="/img/logo.png"
           className="h-[35px] w-[220px] cursor-pointer"
           onClick={handleLogoClick}
+          alt="logo"
         ></img>
 
         {!user && (
@@ -42,12 +43,13 @@ function Header() {
         {user && (
           <div className="relative">
             <div className="flex flex-row items-center w-42 gap-3">
-              <img src="/img/profile.png" className="w-12 h-12"></img>
-              <p className="hidden md:block text-2xl font-normal text-black">{user.email}</p>
+              <img src="/img/profile.png" className="w-12 h-12" alt="profile"></img>
+              <p className="hidden md:block text-2xl font-normal text-black">{user.displayName}</p>
               <img
                 src="/img/rectangle.png"
                 className="w-4 h-3 cursor-pointer"
                 onClick={toggleProfileClick}
+                alt="triangle_profile_window"
               ></img>
             </div>
             {isOpen && <MyProfile setIsOpen={setIsOpen}/>}

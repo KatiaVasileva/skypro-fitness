@@ -10,6 +10,7 @@ export default function Register() {
 
   const [formValues, setFormValues] = useState({
     email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
@@ -43,10 +44,11 @@ export default function Register() {
       const response = await regUser({
         email: formValues.email,
         password: formValues.password,
+        username: formValues.username,
       });
       setError(null);
       setUser(response);
-      navigate(AppRoutes.MAIN);
+      navigate(AppRoutes.LOGIN);
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message.includes("почта уже используется")) {
@@ -66,7 +68,7 @@ export default function Register() {
     <div className="inset-0 flex items-center justify-center bg-[#eaeef6] absolute z-10 bg-dark-gray/50 top-0 left-0">
       <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
         <div className="flex justify-center mb-4">
-          <img src="../../public/logoModal.png" alt="logo_modal" />
+          <img src="/img/logo.png" alt="logo_modal" />
         </div>
 
         <form
@@ -74,9 +76,18 @@ export default function Register() {
           onSubmit={onRegister}
         >
           <div className="gap-2.5">
-            <input
-              className="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+          <input
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="text"
+              value={formValues.username}
+              placeholder="Имя пользователя"
+              name="username"
+              onChange={onInputChange}
+            />
+
+            <input
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              type="email"
               value={formValues.email}
               placeholder="Эл.почта"
               name="email"
@@ -84,7 +95,7 @@ export default function Register() {
             />
 
             <input
-              className="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="password"
               value={formValues.password}
               placeholder="Пароль"
@@ -93,7 +104,7 @@ export default function Register() {
             />
 
             <input
-              className="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="password"
               value={formValues.confirmPassword}
               placeholder="Повторите пароль"
