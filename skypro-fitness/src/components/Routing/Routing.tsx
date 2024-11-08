@@ -20,11 +20,16 @@ export default function Routing() {
           <Route path={AppRoutes.LOGIN} element={<LoginPage />} />
           <Route path={AppRoutes.REGISTER} element={<RegisterPage />} />
         </Route>
-        <Route path={AppRoutes.ACCOUNT_PAGE} element={<AccountPage />} />
-        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
-          <Route path={AppRoutes.ADDPROGRESS} element={<AddProgress />} />
+
+        <Route path={AppRoutes.ACCOUNT} element={<AccountPage />}>
+          <Route path={AppRoutes.RESET} element={<ResetPage />} />
+          <Route path={AppRoutes.NEWPASSWORD} element={<NewPasswordPage />} />
         </Route>
-        <Route path={AppRoutes.SELECTWORKOUT} element={<SelectWorkoutPage />} />
+
+        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
+          <Route path={AppRoutes.ADD_PROGRESS} element={<AddProgress />} />
+        </Route>
+        <Route path={AppRoutes.SELECT_WORKOUT} element={<SelectWorkoutPage />} />
         <Route path={AppRoutes.COURSE} element={<CoursePage />} />
         <Route path={AppRoutes.NOT_FOUND} element={<NotFoundPage />} />
         <Route path={AppRoutes.RESET} element={<ResetPage />} />
