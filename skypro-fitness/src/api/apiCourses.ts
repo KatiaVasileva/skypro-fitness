@@ -1,19 +1,14 @@
-import { child, get, ref } from "firebase/database";
-import { db } from "../lib/firebaseConfig";
-import { CourseType } from "../types/CourseType.type";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-const baseHost =
-  "https://fitness-cee19-default-rtdb.europe-west1.firebasedatabase.app";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { app } from "../lib/firebaseConfig";
 
-export async function getCourses(): Promise<Array<CourseType>> {
-  const response = await fetch(baseHost + "/courses.json", {
-    method: "GET",
+export const getCourses = async () => {
+  const db = getFirestore(app);
+  const querySnapshot = await getDocs(collection(db, "courses"));
+  const courses: any[] = [];
+  querySnapshot.forEach((doc) => {
+    courses.push({ id: doc.id, ...doc.data() });
   });
-
-  if (response.status === 500) {
-    throw new Error("Ошибка при получении данных");
-  }
-
-  const snapshot = await get(child(ref(db), `courses`));
-  return snapshot.val();
-}
+  return courses;
+};
