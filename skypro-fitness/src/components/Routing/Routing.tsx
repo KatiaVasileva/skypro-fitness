@@ -29,7 +29,10 @@ export default function Routing() {
         <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
           <Route path={AppRoutes.ADD_PROGRESS} element={<AddProgress />} />
         </Route>
-        <Route path={AppRoutes.SELECT_WORKOUT} element={<SelectWorkoutPage />} />
+        <Route
+          path={AppRoutes.SELECT_WORKOUT}
+          element={<SelectWorkoutPage />}
+        />
         <Route path={AppRoutes.COURSE} element={<CoursePage />} />
         <Route path={AppRoutes.NOT_FOUND} element={<NotFoundPage />} />
         <Route path={AppRoutes.RESET} element={<ResetPage />} />

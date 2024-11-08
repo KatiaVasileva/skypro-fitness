@@ -4,20 +4,22 @@ import { getCourses } from "../../api/apiCourses";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
 import { saveCoursesToLocalStorage } from "../../lib/helpers";
 
+
 function Main() {
-  const { courses, setCourses} = useCoursesContext();
+  const { courses, setCourses } = useCoursesContext();
 
   useEffect(() => {
-    getCourses().then((allCourses) => {
-      const courses = Object.values(allCourses);
-      saveCoursesToLocalStorage(courses);
-      setCourses(courses);
-    })
-    .catch(() => {
-      console.log("Не удалось загрузить данные, попробуйте позже.");
-    });
+    getCourses()
+      .then((allCourses) => {
+        const courses = Object.values(allCourses);
+        saveCoursesToLocalStorage(courses);
+        setCourses(courses);
+      })
+      .catch(() => {
+        console.log("Не удалось загрузить данные, попробуйте позже.");
+      });
   }, [setCourses]);
-  
+
   return (
     <div className="container">
       <div className="flex flex-row mt-2 md:mt-16 h-30 gap-4">
@@ -53,4 +55,3 @@ function Main() {
 }
 
 export default Main;
-
