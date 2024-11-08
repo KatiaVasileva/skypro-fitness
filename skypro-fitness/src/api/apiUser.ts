@@ -1,101 +1,89 @@
-// Типы данных пользователя
-import { RegType } from "../types/user";
-import { app, auth } from "../lib/firebaseConfig"
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
-import { child, get, getDatabase, ref, set } from "firebase/database";
-import { FirebaseError } from "firebase/app";
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { firebaseConfig } from "../lib/firebaseConfig";
+import { UserType } from "../types/UserType.type";
 
-// Типы аргументов и ответа функции
 type LoginCredentials = {
   login: string;
   password: string;
 };
 
-const database = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Зарегестрироваться
-export async function regUser({
-  email,
-  password,
-}: RegType) {
-  try {
-    // Создаем пользователя с email и паролем
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password,
-    );
-    const uid = userCredential.user.uid;
+export const regUser = async ({ email, password, username }: UserType) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
 
-    // Обновляем профиль пользователя, чтобы установить displayName
-    // await updateProfile(userCredential.user, {
-    //   displayName: username,
-    // });
+  const uid = userCredential.user.uid;
 
-    // Сохраняем информацию о пользователе в Realtime Database  
-    await set(ref(database, "users/" + uid), {
-      uid: uid,
-      email: email,
-    });
+  console.log(username);
 
-    // Получаем информацию о пользователе из базы данных
-    const snapshot = await get(child(ref(database), `users/${uid}`));
-    return snapshot.val();
-    
-  } catch (error) {
-    // Проверяем, является ли error экземпляром FirebaseError и имеет код ошибки
-    if (error instanceof FirebaseError && error.code === "auth/email-already-in-use") {
-      throw new Error("Данная почта уже используется");
-    } else {
-      throw new Error("Произошла ошибка при регистрации. Попробуйте снова.");
-    }
+  // Обновляем профиль пользователя, чтобы установить displayName
+  await updateProfile(userCredential.user, {
+    displayName: username,
+  });
+
+  const user = userCredential.user;
+
+  await setDoc(doc(db, "users", user.uid), {
+    uid: uid,
+    email: email,
+    username: username,
+    courses: [],
+    workouts: [],
+  });
+
+  return user;
+};
+
+export const loginUser = async (credentials: LoginCredentials) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    credentials.login,
+    credentials.password
+  );
+
+  const user = userCredential.user
+  return user;
+};
+
+export const logout = async () => {
+  await signOut(auth);
+};
+
+// Функция для восстановления пароля
+export const resetPassword = async (email: string) => {
+  await sendPasswordResetEmail(auth, email);
+};
+
+// Функция для получения данных пользователя из Firestore
+export const getUserData = async (uid: string) => {
+  const userDoc = await getDoc(doc(db, "users", uid));
+  if (userDoc.exists()) {
+    return userDoc.data();
+  } else {
+    return null;
   }
-}
-
-
-// export const loginUser = async (credentials: LoginCredentials): Promise<UserType> => {
-//   try {
-//     const response = await fetch("https://example.com/api/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(credentials),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Неверные данные для входа");
-//     }
-
-//     const userData: UserType = await response.json();
-//     return userData;
-//   } catch (error) {
-//     console.error("Ошибка при входе:", error);
-//     throw error;
-//   }
-// };
-
-export async function loginUser(credentials: LoginCredentials) {
-  try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      credentials.login,
-      credentials.password
-    );
-    const uid = userCredentials.user.uid;
-    const snapshot = await get(child(ref(database), `users/${uid}`));
-    return snapshot.val();
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-    }
-  }
-}
+};
 
 export async function handlePasswordReset(email: string) {
   try {
     await sendPasswordResetEmail(auth, email);
-    console.log(`Ссылка для восстановления пароля отправлена на ${email}`);
+    // alert(`Ссылка для восстановления пароля отправлена на ${email}`);
   } catch (error) {
     console.error("Ошибка при отправке письма для сброса пароля:", error);
   }
@@ -112,3 +100,7 @@ export async function changePassword(password: string) {
     if (error instanceof Error) throw new Error(error.message);
   }
 }
+
+export { auth };
+
+
