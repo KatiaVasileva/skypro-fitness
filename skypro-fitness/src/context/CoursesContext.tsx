@@ -31,7 +31,7 @@ export default function CoursesProvider({ children }: CoursesProviderProps) {
     if (courses) {
       saveCoursesToLocalStorage(courses);
     }
-  });
+  }, [courses]);
 
   return (
     <CoursesContext.Provider
