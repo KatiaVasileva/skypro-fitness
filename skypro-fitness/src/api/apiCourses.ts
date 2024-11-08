@@ -1,7 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { app } from "../lib/firebaseConfig";
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+import { app, db } from "../lib/firebaseConfig";
 
 export const getCourses = async () => {
   const db = getFirestore(app);
@@ -11,4 +20,32 @@ export const getCourses = async () => {
     courses.push({ id: doc.id, ...doc.data() });
   });
   return courses;
+};
+
+export const getUserCourses = async (uid: string) => {
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data().courses;
+  } else {
+    console.log("No such document!");
+  }
+};
+
+export const addCourseToUser = async (uid: string, courseId: string) => {
+  const db = getFirestore();
+  const userRef = doc(db, "users", uid);
+
+  await updateDoc(userRef, {
+    courses: arrayUnion(courseId),
+  });
+};
+
+export const deleteCourseFromUser = async (uid: string, courseId: string) => {
+  const db = getFirestore();
+  const userRef = doc(db, "users", uid);
+  await updateDoc(userRef, {
+    courses: arrayRemove(courseId),
+  });
 };

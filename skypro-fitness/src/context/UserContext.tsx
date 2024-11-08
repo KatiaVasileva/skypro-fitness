@@ -17,7 +17,6 @@ type UserContextData = {
   setUser: (newUser: User) => void;
 };
 
-// Создаем контекст
 export const UserContext = createContext<UserContextData | null>(null);
 
 const UserProvider = ({ children }: UserProviderProps) => {

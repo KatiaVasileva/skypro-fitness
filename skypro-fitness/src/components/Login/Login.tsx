@@ -78,7 +78,7 @@ export const Login = () => {
                 name="email"
                 value={formValues.email}
                 onChange={onInputChange}
-                className={`w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] ${
+                className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
                   loginError ? "border-red-500" : "border-[#D0CECE]"
                 } text-[#D0CECE]`}
               />
@@ -92,7 +92,7 @@ export const Login = () => {
                 name="password"
                 value={formValues.password}
                 onChange={onInputChange}
-                className={`w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] ${
+                className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
                   passwordError ? "border-red-500" : "border-[#D0CECE]"
                 } text-[#D0CECE]`}
               />
