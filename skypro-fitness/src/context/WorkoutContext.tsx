@@ -33,7 +33,7 @@ const WorkoutProvider = ({ children }: WorkoutProviderProps) => {
     if (workouts) {
       saveWorkoutsToLocalStorage(workouts);
     }
-  });
+  }, [workouts]);
 
   return (
     <WorkoutContext.Provider

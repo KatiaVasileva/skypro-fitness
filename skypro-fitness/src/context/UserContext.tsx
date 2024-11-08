@@ -3,6 +3,7 @@ import {
   getUserFromLocalStorage,
   removeCoursesFromLocalStorage,
   removeUserFromLocalStorage,
+  removeWorkoutsFromLocalStorage,
   saveUserToLocalStorage,
 } from "../lib/helpers";
 import { User } from "firebase/auth";
@@ -32,6 +33,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     setUser(null);
     removeUserFromLocalStorage();
     removeCoursesFromLocalStorage();
+    removeWorkoutsFromLocalStorage();
   };
 
   return (
