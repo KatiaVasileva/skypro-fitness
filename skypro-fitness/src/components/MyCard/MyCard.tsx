@@ -51,11 +51,13 @@ function MyCard({ courseId }: { courseId: string }) {
           ></img>
           <p className="text-black">Сложность</p>
         </div>
-        <div className="mt-4">
-          <p className="text-gray-600">Прогресс 100%</p>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1 mb-10">
-            <div className="bg-blue h-2.5 rounded-full w-full"></div>
-          </div>
+        <div className="mt-4 mb-9">
+          <p className="text-gray-600">Прогресс 50%</p>
+          <progress
+            className="h-1.5 w-[300px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
+            max="100"
+            value="50"
+          />
         </div>
         <button
           className="btn-primary w-full h-12 mb-5"
