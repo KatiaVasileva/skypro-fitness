@@ -8,10 +8,7 @@ import {
   getDoc,
   getDocs,
   getFirestore,
-  query,
-  setDoc,
   updateDoc,
-  where,
 } from "firebase/firestore";
 import { app, db } from "../lib/firebaseConfig";
 
@@ -63,39 +60,57 @@ export const getWorkouts = async () => {
   return workouts;
 };
 
-export const queryCourses = async (
-  field: string,
-  operator: any,
-  value: any
-) => {
-  const db = getFirestore(app);
-  const q = query(collection(db, "courses"), where(field, operator, value));
-  const querySnapshot = await getDocs(q);
-  const courses: any[] = [];
-  querySnapshot.forEach((doc) => {
-    courses.push({ id: doc.id, ...doc.data() });
-  });
-  return courses;
-};
+// export const addWorkoutProgressToUser = async (
+//   uid: string,
+//   workoutId: string,
+//   // workoutProgress: Array<number>
+//   exercises: Array<ExerciseType>
+// ) => {
+//   const db = getFirestore();
 
-export const saveUser = async (uid: string, data: any) => {
-  await setDoc(doc(db, "users", uid), data, { merge: true });
-  // await initializeUserProgress(uid);
-};
+//   const progress = {
+//     workout_id: workoutId,
+//     exercises: exercises,
+//   };
 
-export const checkCourseExists = async (
-  uid: string,
-  courseId: number
-): Promise<boolean> => {
-  const userProgressRef = doc(db, "dataUsers", uid);
-  const userProgressDoc = await getDoc(userProgressRef);
+//   const docRef = doc(db, "dataUsers", uid);
+//   const docSnap = await getDoc(docRef);
 
-  if (!userProgressDoc.exists()) {
-    return false;
-  }
+//   if (docSnap.exists()) {
+//     const workouts = docSnap.data().workouts;
+//     console.log(workouts);
+//     const workout = workouts.filter(
+//       (workout: { workout_id: string; exercises: Array<ExerciseType> }) =>
+//         workout.workout_id === workoutId
+//     );
+//     if(workout.length === 0) {
+//       await updateDoc(docRef, { workouts: arrayUnion(progress) });
+//     } else {
+//       await updateDoc(docRef, {workouts: [workouts.exercises]});
+//     }
+//   } else {
+//     console.log("No document");
+//   }
+// };
 
-  const userProgressData = userProgressDoc.data() || { courses_progress: [] };
-  const existingCourses = userProgressData.courses_progress;
+// export const getWorkoutProgressFromUser = async (
+//   uid: string,
+//   workoutId: string
+// ) => {
+//   const docRef = doc(db, "dataUsers", uid);
+//   const docSnap = await getDoc(docRef);
 
-  return existingCourses.some((course: any) => course.id_course === courseId);
-};
+//   if (docSnap.exists()) {
+//     const workouts = docSnap.data().workouts;
+//     console.log(workouts);
+//     const workout = workouts.find(
+//       (workout: { workout_id: string; exercises: Array<ExerciseType> }) =>
+//         workout.workout_id === workoutId
+//     );
+//     console.log(workout.exercises);
+//     return workout.exercises;
+//   } else {
+//     console.log("No document");
+//   }
+// };
+
