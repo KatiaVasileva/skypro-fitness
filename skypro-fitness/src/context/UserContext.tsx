@@ -1,9 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
 import {
   getUserFromLocalStorage,
-  removeCoursesFromLocalStorage,
   removeUserFromLocalStorage,
-  removeWorkoutsFromLocalStorage,
   saveUserToLocalStorage,
 } from "../lib/helpers";
 import { User } from "firebase/auth";
@@ -32,8 +30,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
   const logout = () => {
     setUser(null);
     removeUserFromLocalStorage();
-    removeCoursesFromLocalStorage();
-    removeWorkoutsFromLocalStorage();
   };
 
   return (
