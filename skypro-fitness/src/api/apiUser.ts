@@ -4,8 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  sendPasswordResetEmail,
-  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
@@ -30,9 +28,6 @@ export const regUser = async ({ email, password, username }: UserType) => {
 
   const uid = userCredential.user.uid;
 
-  console.log(username);
-
-  // Обновляем профиль пользователя, чтобы установить displayName
   await updateProfile(userCredential.user, {
     displayName: username,
   });
@@ -65,12 +60,6 @@ export const logout = async () => {
   await signOut(auth);
 };
 
-// Функция для восстановления пароля
-export const resetPassword = async (email: string) => {
-  await sendPasswordResetEmail(auth, email);
-};
-
-// Функция для получения данных пользователя из Firestore
 export const getUserData = async (uid: string) => {
   const userDoc = await getDoc(doc(db, "users", uid));
   if (userDoc.exists()) {
@@ -79,27 +68,6 @@ export const getUserData = async (uid: string) => {
     return null;
   }
 };
-
-export async function handlePasswordReset(email: string) {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    // alert(`Ссылка для восстановления пароля отправлена на ${email}`);
-  } catch (error) {
-    console.error("Ошибка при отправке письма для сброса пароля:", error);
-  }
-}
-
-// Сменить пароль
-export async function changePassword(password: string) {
-  try {
-    if (!auth.currentUser) {
-      throw new Error("Нет авторизации");
-    }
-    await updatePassword(auth.currentUser, password);
-  } catch (error) {
-    if (error instanceof Error) throw new Error(error.message);
-  }
-}
 
 export { auth };
 
