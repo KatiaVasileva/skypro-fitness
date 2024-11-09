@@ -1,13 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useEffect, useState } from "react";
-// import { auth } from "../../lib/firebaseConfig";
-// import { handlePasswordReset } from "../../api/apiUser";
 import { AppRoutes } from "../../lib/appRoutes";
 import { getUserCourses } from "../../api/apiCourses";
 import MyCard from "../MyCard/MyCard";
-import { auth } from "../../lib/firebaseConfig";
-import { handlePasswordReset } from "../../api/apiUser";
 
 export const Account = () => {
   const { user, logout } = useUserContext();
@@ -15,10 +11,7 @@ export const Account = () => {
   const [userCourses, setUserCourses] = useState<Array<string>>([]);
 
   const handleResetPassword = async () => {
-    if (auth.currentUser!.email) {
-      await handlePasswordReset(auth.currentUser!.email);
-      navigate(AppRoutes.RESET);
-    }
+    navigate(AppRoutes.RESET);
   };
 
   const handleLogoutButton = () => {
@@ -60,7 +53,10 @@ export const Account = () => {
                     </div>
 
                     <div className="flex space-x-4">
-                      <button className="bg-green text-black px-6 py-2 rounded-full transition hover:bg-lime-500" onClick={handleResetPassword}>
+                      <button
+                        className="bg-green text-black px-6 py-2 rounded-full transition hover:bg-lime-500"
+                        onClick={handleResetPassword}
+                      >
                         Изменить пароль
                       </button>
                       <button
@@ -85,7 +81,6 @@ export const Account = () => {
                 {userCourses.map((course) => (
                   <MyCard courseId={course} key={course} />
                 ))}
-                
               </div>
             </div>
           </div>
