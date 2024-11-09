@@ -1,34 +1,13 @@
-import { useEffect } from "react";
-import { WorkoutType } from "../../types/WorkoutType.type";
-import { useWorkoutContext } from "../../hooks/useWorkoutContext";
 import { useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../lib/appRoutes";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
-import { getWorkouts } from "../../api/apiCourses";
-import { saveWorkoutsToLocalStorage } from "../../lib/helpers";
 import Workout from "../Workout/Workout";
 
 function WorkoutSelect({ courseId }: { courseId: string | undefined }) {
   const navigate = useNavigate();
-  const {workouts, setWorkouts} = useWorkoutContext();
   const { courses } = useCoursesContext();
   const course = courses.filter((course) => course._id === courseId);
   const courseWorkouts = course[0].workouts;
-
-  useEffect(() => {
-    getWorkouts()
-      .then((allWorkouts) => {
-        const workouts: Array<WorkoutType> = Object.values(allWorkouts);
-        console.log(workouts);
-        saveWorkoutsToLocalStorage(workouts);
-        setWorkouts(workouts);
-      })
-      .catch(() => {
-        console.log("Не удалось загрузить данные, попробуйте позже.");
-      });
-  }, [setWorkouts]);
-
-  console.log(workouts);
 
   const handleBackButton = () => {
     navigate(AppRoutes.ACCOUNT);

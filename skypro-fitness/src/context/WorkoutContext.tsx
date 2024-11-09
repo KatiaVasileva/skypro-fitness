@@ -22,9 +22,7 @@ export const WorkoutContext = createContext<WorkoutContextData | null>(null);
 
 const WorkoutProvider = ({ children }: WorkoutProviderProps) => {
   const [workouts, setWorkouts] = useState<Array<WorkoutType>>(
-    getWorkoutsFromLocalStorage() === undefined
-      ? []
-      : getWorkoutsFromLocalStorage
+    getWorkoutsFromLocalStorage
   );
   const [workoutProgress, setWorkoutProgress] = useState<Array<number>>([]);
   const [exercises, setExercises] = useState<Array<ExerciseType>>([]);

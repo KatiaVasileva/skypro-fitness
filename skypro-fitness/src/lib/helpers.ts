@@ -30,9 +30,10 @@ export function saveCoursesToLocalStorage(courses: Array<CourseType>) {
 export function getCoursesFromLocalStorage() {
   try {
     const courses = window.localStorage.getItem("courses");
-    if (courses) {
-      return JSON.parse(courses);
+    if (!courses) {
+      return [];
     }
+    return JSON.parse(courses);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);
@@ -51,9 +52,10 @@ export function saveWorkoutsToLocalStorage(workouts: Array<WorkoutType>) {
 export function getWorkoutsFromLocalStorage() {
   try {
     const workouts = window.localStorage.getItem("workouts");
-    if (workouts) {
-      return JSON.parse(workouts);
+    if (!workouts) {
+      return [];
     }
+    return JSON.parse(workouts);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);
@@ -64,5 +66,3 @@ export function getWorkoutsFromLocalStorage() {
 export function removeWorkoutsFromLocalStorage() {
   window.localStorage.removeItem("workouts");
 }
-
-
