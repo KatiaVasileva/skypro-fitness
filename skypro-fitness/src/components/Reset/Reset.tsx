@@ -1,39 +1,87 @@
 import { useEffect, useState } from "react";
-import { handlePasswordReset } from "../../api/apiUser";
+import { useNavigate } from "react-router-dom";
+import { EmailAuthProvider, getAuth, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { AppRoutes } from "../../lib/appRoutes";
 
-type ResetProps = {
-  email: string | undefined; 
-};
-
-const Reset = ({ email }: ResetProps) => {
+const Reset = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); 
 
-  // Вызов handlePasswordReset при монтировании компонента
-  useEffect(() => {
-    if (email) {
-      handlePasswordReset(email)
-        .then(() => {
-          setMessage(`Ссылка для восстановления пароля отправлена на ${email}`);
-        })
-        .catch((error) => {
-          setError("Ошибка при отправке письма для сброса пароля. Попробуйте снова.");
-          console.error("Ошибка:", error);
-        });
-    } else {
-      setError("Email не указан.");
+  const passwordLength = 6;
+
+
+  const handleChangePassword = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      setError("Нет авторизации.");
+      return;
     }
-  }, [email]);
+
+    if (newPassword.length < passwordLength) {
+      setError("Пароль должен содержать не менее 6 символов");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError("Пароли не совпадают");
+      return;
+    }
+
+    const credential = EmailAuthProvider.credential(user.email || "", currentPassword);
+
+    try {
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+      setMessage("Пароль успешно изменен.");
+      setTimeout (() => {
+        navigate(AppRoutes.LOGIN);
+      }, 2000);
+    } catch (err) {
+      setError((err as Error).message ||"Ошибка при смене пароля. Попробуйте снова.");
+    }
+  };
+
+  useEffect(() => {
+    setError("");
+  }, [currentPassword, newPassword, confirmPassword]);
 
   return (
-    <div className="w-full h-full overflow-x-hidden bg-[#eaeef6]">
-      <div className="block w-screen min-h-screen mx-auto my-0">
-        <div className="h-screen flex items-center">
-          <div className="block bg-white w-[360px] h-[223px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[60px] py-[50px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
-            <div className="pb-[50px]">
-              <img src="../../public/logoModal.png" alt="logo_modal" />
+    <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0">
+      <div className="block w-full min-h-screen mx-auto my-0">
+        <div className="flex fixed inset-0 items-center justify-center z-50 ">
+          <div className="flex bg-white w-[360px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[60px] py-[50px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5] flex-col items-center">
+            <div className="pb-[40px]">
+              <img src="/img/logo.png" alt="logo" />
             </div>
-            <div className="h-[60px] w-[280px] gap-[10px] text-center">
+           
+            <input
+              type="password"
+              placeholder="Текущий пароль"
+              className="input-class"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Новый пароль"
+              className="input-class"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Повторите пароль"
+              className="input-class"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+             <div className="h-[60px] w-[280px] gap-[10px] text-center">
               {message && (
                 <span className="text-lg font-normal leading-[19.8px] font-roboto block text-black">
                   {message}
@@ -45,6 +93,12 @@ const Reset = ({ email }: ResetProps) => {
                 </span>
               )}
             </div>
+            <button
+              onClick={handleChangePassword}
+              className="btn-primary w-[280px] h-[52px] mt-8"
+            >
+              Подтвердить
+            </button>
           </div>
         </div>
       </div>

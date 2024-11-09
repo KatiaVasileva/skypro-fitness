@@ -33,6 +33,10 @@
   .btn-primary-white {
     @apply rounded-3xl px-4 md:px-6 py-1 text-lg text-black font-normal bg-white hover:bg-light-gray border border-black cursor-pointer shadow-md;
   }
+
+  .input-class {
+    @apply h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none;
+  }
 }
 
 @layer utilities {

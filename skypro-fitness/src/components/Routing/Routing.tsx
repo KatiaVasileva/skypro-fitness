@@ -7,7 +7,6 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import CoursePage from "../../pages/CoursePage";
 import SelectWorkoutPage from "../../pages/SelectWorkoutPage";
 import ResetPage from "../../pages/ResetPage";
-import NewPasswordPage from "../../pages/NewPasswordPage";
 import AccountPage from "../../pages/AccountPage";
 import WorkoutVideoPage from "../../pages/WorkoutVideoPage";
 
@@ -22,7 +21,6 @@ export default function Routing() {
 
         <Route path={AppRoutes.ACCOUNT} element={<AccountPage />}>
           <Route path={AppRoutes.RESET} element={<ResetPage />} />
-          <Route path={AppRoutes.NEWPASSWORD} element={<NewPasswordPage />} />
         </Route>
 
         <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />} />
