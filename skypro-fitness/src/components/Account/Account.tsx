@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useEffect, useState } from "react";
 import { AppRoutes } from "../../lib/appRoutes";
@@ -55,14 +55,12 @@ export const Account = () => {
                     <div className="flex space-x-4">
                       <button
                         className="bg-green text-black px-6 py-2 rounded-full transition hover:bg-lime-500"
-                        onClick={handleResetPassword}
-                      >
+                        onClick={handleResetPassword}>
                         Изменить пароль
                       </button>
                       <button
                         className="bg-white text-black px-12 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                        onClick={handleLogoutButton}
-                      >
+                        onClick={handleLogoutButton}>
                         Выйти
                       </button>
                     </div>
@@ -77,11 +75,22 @@ export const Account = () => {
                 <p className="text-[40px] font-bold">Мои курсы</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {userCourses.map((course) => (
-                  <MyCard courseId={course} key={course} />
-                ))}
-              </div>
+              {userCourses.length === 0 ? (
+                <p className="text-lg">
+                  Курсов пока нет.{" "}
+                  <Link
+                    to={AppRoutes.MAIN}
+                    className="underline font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                    Перейдите, чтобы выбрать занятие
+                  </Link>
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {userCourses.map((course) => (
+                    <MyCard courseId={course} key={course} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
