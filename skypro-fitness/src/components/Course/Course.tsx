@@ -18,6 +18,8 @@ const benefitList = [
 ];
 
 function Course({ courseId }: { courseId: string | undefined }) {
+  const [color, setColor] = useState("bg-white");
+  //const [isMobile, setIsMobile] = useState(false);
   const { courses } = useCoursesContext();
   const { user } = useUserContext();
   const navigate = useNavigate();
@@ -48,24 +50,57 @@ function Course({ courseId }: { courseId: string | undefined }) {
     deleteCourseFromUser(user!.uid, course[0]._id);
   };
 
+  useEffect(() => {
+    switch (course[0].nameEN) {
+      case "Yoga":
+        setColor("bg-yellow");
+        break;
+      case "StepAirobic":
+        setColor("bg-salmon");
+        break;
+      case "BodyFlex":
+        setColor("bg-purple");
+        break;
+      case "DanceFitness":
+        setColor("bg-orange");
+        break;
+      case "Stretching":
+        setColor("bg-blueDark");
+        break;
+      default:
+        setColor("bg-white");
+    }
+  }, [course]);
+
+  // useEffect(() => {
+  //   const updateMedia = () => {
+  //     setIsMobile(window.innerWidth <= 375);
+  //   };
+
+  //   updateMedia();
+  //   window.addEventListener("resize", updateMedia);
+  //   return () => window.removeEventListener("resize", updateMedia);
+  // }, []);
+
   return (
     <>
       <div className="container">
         <div className="flex flex-col mt-14 gap-14">
           <div
-            className="h-[389px] rounded-3xl bg-cover bg-center md:h-80 p-4"
-            style={{ backgroundImage: `url(/img/course_${courseId}.png)` }}
+            className={`relative h-[389px] ${color} rounded-3xl bg-cover bg-center p-4 md:h-80`}
+            //style={{ backgroundImage: `url(/img/course_${courseId}.png)` }}
           >
-            {/* <img
-              src={`/img/course_${courseId}.png`}
-              className="absolute right-0 rounded-3xl"
-              alt=""
-            /> */}
             <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible">
               {course[0].nameRU}
             </h3>
+         
+               <img
+                src={`/img/course_${courseId}.png`}
+                className="absolute bottom-0 right-0 md:h-full rounded-3xl"
+                alt="sport"
+              />
+            
           </div>
-
           <div>
             <h3 className=" text-black font-medium text-2xl/6 text-left md:font-semibold md:text-4xl pb-6 md:pb-10">
               Подойдет для вас, если:
