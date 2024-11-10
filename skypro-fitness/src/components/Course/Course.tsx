@@ -121,7 +121,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
           </div>
         </div>
 
-        <div className="md:flex md:flex-row md:w-full mt-[156px] md:mt-[102px] md:rounded-xl md:shadow-2xl md:min-h-[486px] md:bg-white">
+        <div className="mt-[156px] flex flex-col-reverse md:flex md:flex-row md:w-full md:mt-[102px] md:rounded-xl md:shadow-2xl md:min-h-[486px] md:bg-white">
           <div className="flex flex-col gap-7 justify-items-center p-7 max-md:max-w-[343px] md:w-[517px] md:p-10 bg-white max-md:rounded-xl max-md:shadow-2xl ">
             <h3 className="text-black text-3xl font-medium text-left lg:text-6xl">
               Начните путь к новому телу
@@ -159,19 +159,19 @@ function Course({ courseId }: { courseId: string | undefined }) {
             )}
           </div>
 
-          <div className="md:relative">
+          <div className="relative">
             <img
               src="/img/blackvector.png"
-              className="absolute top-[1508px] left-40 max-md:w-[32px] max-md:h-[27px] md:top-[118px] md:left-10 lg:top-[32px] lg:left-56"
+              className="absolute bottom-[150px] left-40 max-md:w-[32px] max-md:h-[27px] md:top-[118px] md:left-10 lg:top-[32px] lg:left-56"
               alt="blackline"
             />
             <img
-              className="absolute -z-10 top-[1560px] inset-x-0 md:relative md:top-56 md:left-0 md:rotate-2 lg:top-[86px] lg:-left-4 md:z-10"
+              className="absolute -z-10 bottom-[-100px] inset-x-0 md:relative md:top-56 md:left-0 md:rotate-2 lg:top-[86px] lg:-left-4 md:z-10"
               src="/img/vector.png"
               alt="greenline"
             />
             <img
-              className="absolute -z-10 top-[1436px] left-[86px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
+              className="absolute -z-10 bottom-[-100px] left-[86px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
               src="/img/addcoursepic.png"
               alt="sportsman"
             />
