@@ -77,11 +77,20 @@ export const Account = () => {
                 <p className="text-[40px] font-bold">Мои курсы</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {userCourses.map((course) => (
-                  <MyCard courseId={course} key={course} />
-                ))}
-              </div>
+              {userCourses.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {userCourses.map((course) => (
+                    <MyCard courseId={course} key={course} />
+                  ))}
+                </div>
+              )}
+
+              {userCourses.length === 0 && (
+                <>
+                  <p className="mb-10 text-2xl font-medium">У вас нет приобретенных курсов.</p>
+                  <button className="btn-primary w-[252px] h-[52px]" onClick={() => navigate(AppRoutes.MAIN)}>Перейти на главную</button>
+                </>
+              )}
             </div>
           </div>
         </div>
