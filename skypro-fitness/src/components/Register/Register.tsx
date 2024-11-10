@@ -17,6 +17,8 @@ export default function Register() {
 
   const [error, setError] = useState<string | null>(null);
 
+  const passwordLength = 6;
+
   const onInputChange: React.ComponentProps<"input">["onChange"] = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -32,6 +34,11 @@ export default function Register() {
 
     if (!formValues.password || formValues.password.trim().length === 0) {
       setError("Не введён пароль");
+      return;
+    }
+
+    if (formValues.password.length < passwordLength) {
+      setError("Пароль должен содержать не менее 6 символов");
       return;
     }
 
