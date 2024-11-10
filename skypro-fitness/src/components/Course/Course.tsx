@@ -52,7 +52,15 @@ function Course({ courseId }: { courseId: string | undefined }) {
     <>
       <div className="container">
         <div className="flex flex-col mt-14 gap-14">
-          <div className="bg-center h-[389px] rounded-3xl bg-yogamin bg-no-repeat bg-cover md:bg-yoga md:h-80">
+          <div
+            className="h-[389px] rounded-3xl bg-cover bg-center md:h-80 p-4"
+            style={{ backgroundImage: `url(/img/course_${courseId}.png)` }}
+          >
+            {/* <img
+              src={`/img/course_${courseId}.png`}
+              className="absolute right-0 rounded-3xl"
+              alt=""
+            /> */}
             <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible">
               {course[0].nameRU}
             </h3>
@@ -79,18 +87,18 @@ function Course({ courseId }: { courseId: string | undefined }) {
             </div>
           </div>
 
-          <div>
+          <div className="">
             <h3 className="text-black font-medium text-2xl/6  text-left md:text-4xl md:font-semibold pb-10">
               Направления
             </h3>
             <div className="relative -z-20 bg-green text-black rounded-3xl">
               <ul
                 role="list"
-                className="list-inside p-7 max-w-6xl md:columns-3"
+                className="list-inside pt-7 px-7 max-w-6xl md:columns-3"
               >
                 {directionsList.map((item, index) => (
                   <li
-                    className="flex items-center gap-2 mb-6 md:mb-8"
+                    className="flex items-center gap-2 pb-6 md:pb-8"
                     key={index}
                   >
                     <svg
@@ -113,7 +121,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
           </div>
         </div>
 
-        <div className="md:flex md:flex-row md:w-full mt-[156px] md:rounded-xl md:shadow-2xl md:min-h-[486px] md:bg-white">
+        <div className="mt-[156px] flex flex-col-reverse md:flex md:flex-row md:w-full md:mt-[102px] md:rounded-xl md:shadow-2xl md:min-h-[486px] md:bg-white">
           <div className="flex flex-col gap-7 justify-items-center p-7 max-md:max-w-[343px] md:w-[517px] md:p-10 bg-white max-md:rounded-xl max-md:shadow-2xl ">
             <h3 className="text-black text-3xl font-medium text-left lg:text-6xl">
               Начните путь к новому телу
@@ -127,7 +135,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
             </ul>
             {!user && (
               <button
-                className="btn-primary w-full h-14"
+                className="btn-primary text-base place-self-center w-full h-[50px] md:text-lg md:h-[52px]"
                 onClick={handleLoginButton}
               >
                 <a>Войдите, чтобы добавить курс</a>
@@ -135,7 +143,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
             )}
             {user && !userCourses.includes(course[0]._id) && (
               <button
-                className="btn-primary w-full h-14"
+                className="btn-primary text-base place-self-center w-full h-[50px] md:text-lg md:h-[52px]"
                 onClick={handleAddCourseButton}
               >
                 <a>Добавить курс</a>
@@ -143,7 +151,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
             )}
             {user && userCourses.includes(course[0]._id) && (
               <button
-                className="btn-primary w-full h-14"
+                className="btn-primary text-base place-self-center w-full h-[50px] md:text-lg md:h-[52px]"
                 onClick={handleDeleteCourseButton}
               >
                 <a>Удалить курс</a>
@@ -151,19 +159,19 @@ function Course({ courseId }: { courseId: string | undefined }) {
             )}
           </div>
 
-          <div className="md:relative">
+          <div className="relative">
             <img
               src="/img/blackvector.png"
-              className="absolute top-[1508px] left-40 max-md:w-[32px] max-md:h-[27px] md:top-[118px] md:left-10 lg:top-[32px] lg:left-56"
+              className="absolute bottom-[150px] left-40 max-md:w-[32px] max-md:h-[27px] md:top-[118px] md:left-10 lg:top-[32px] lg:left-56"
               alt="blackline"
             />
             <img
-              className=" absolute -z-10 top-[1560px] inset-x-0 md:relative md:top-56 md:left-0 md:rotate-2 lg:top-[86px] lg:-left-4 md:z-10"
+              className="absolute -z-10 bottom-[-100px] inset-x-0 md:relative md:top-56 md:left-0 md:rotate-2 lg:top-[86px] lg:-left-4 md:z-10"
               src="/img/vector.png"
               alt="greenline"
             />
             <img
-              className=" absolute -z-10 top-[1436px] left-[86px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
+              className="absolute -z-10 bottom-[-100px] left-[86px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
               src="/img/addcoursepic.png"
               alt="sportsman"
             />

@@ -27,10 +27,6 @@ export default {
         "blackRgba": "rgba(0, 0, 0, 0.54)",
         "inputBorder": "#D0CECE",
       },
-      backgroundImage: {
-        yoga: "url('/img/yogapic.png')",
-        yogamin: "url('/img/yogapicmin.png')",
-      },
     },
   },
   plugins: [],
