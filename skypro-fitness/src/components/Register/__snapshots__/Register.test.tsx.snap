@@ -13,7 +13,7 @@ exports[`Header component renders correctly 1`] = `
       >
         <img
           alt="logo_modal"
-          src="../../public/logoModal.png"
+          src="/img/logo.png"
         />
       </div>
       <form
@@ -23,21 +23,28 @@ exports[`Header component renders correctly 1`] = `
           class="gap-2.5"
         >
           <input
-            class="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
-            name="email"
-            placeholder="Эл.почта"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            name="username"
+            placeholder="Имя пользователя"
             type="text"
             value=""
           />
           <input
-            class="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            name="email"
+            placeholder="Эл.почта"
+            type="email"
+            value=""
+          />
+          <input
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
             name="password"
             placeholder="Пароль"
             type="password"
             value=""
           />
           <input
-            class="h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
             name="confirmPassword"
             placeholder="Повторите пароль"
             type="password"

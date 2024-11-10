@@ -23,14 +23,14 @@ exports[`Login component renders correctly 1`] = `
             class="flex flex-col w-full mb-4 items-center gap-[10px]"
           >
             <input
-              class="w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
               name="email"
               placeholder="Логин"
               type="email"
               value=""
             />
             <input
-              class="w-[280px] h-[52px] bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
               name="password"
               placeholder="Пароль"
               type="password"

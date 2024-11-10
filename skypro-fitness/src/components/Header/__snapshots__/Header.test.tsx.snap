@@ -9,6 +9,7 @@ exports[`Header component renders correctly 1`] = `
       class="h-50 flex flex-row items-center place-content-between mb-3"
     >
       <img
+        alt="logo"
         class="h-[35px] w-[220px] cursor-pointer"
         src="/img/logo.png"
       />
