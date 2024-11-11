@@ -16,7 +16,7 @@ export const Login = () => {
 
   const [loginError, setLoginError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
-  
+
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -53,7 +53,7 @@ export const Login = () => {
     } catch (error: unknown) {
       console.error(error);
       setPasswordError(
-        "Пароль введен неверно, попробуйте еще раз. Восстановить пароль?"
+        "Пароль и/или логин введен неверно, попробуйте еще раз. Восстановить пароль?"
       );
     }
   };
@@ -64,7 +64,7 @@ export const Login = () => {
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
             className="w-[220px] h-[35px] mx-auto"
-            src="/logoModal.png"
+            src="public/logoModal.png"
             alt="logo_modal"
           />
           <form
@@ -78,7 +78,7 @@ export const Login = () => {
                 name="email"
                 value={formValues.email}
                 onChange={onInputChange}
-                className={`input-class ${
+                className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
                   loginError ? "border-red-500" : "border-[#D0CECE]"
                 } text-[#D0CECE]`}
               />
@@ -92,7 +92,7 @@ export const Login = () => {
                 name="password"
                 value={formValues.password}
                 onChange={onInputChange}
-                className={`input-class ${
+                className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
                   passwordError ? "border-red-500" : "border-[#D0CECE]"
                 } text-[#D0CECE]`}
               />
@@ -112,11 +112,11 @@ export const Login = () => {
               </>
             )}
             <div className="mt-[24px] flex flex-col w-full items-center gap-[10px]">
-              <button className="btn-primary w-full h-[52px]">
+              <button className="bg-[#BCEC30] text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] hover:bg-[#C6FF00] border-none active:bg-black active:text-white">
                 Войти
               </button>
               <button
-                className="btn-primary border border-black w-full h-[52px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
+                className="border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
                 onClick={() => navigate(AppRoutes.REGISTER)}
               >
                 Зарегистрироваться

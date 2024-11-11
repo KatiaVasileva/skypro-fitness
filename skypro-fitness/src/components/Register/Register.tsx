@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../../hooks/useUserContext";
 import React, { useState } from "react";
 import { AppRoutes } from "../../lib/appRoutes";
 import { regUser } from "../../api/apiUser";
+import { useUserContext } from "../../hooks/useUserContext";
 
 export default function Register() {
   const { setUser } = useUserContext();
@@ -10,16 +10,20 @@ export default function Register() {
 
   const [formValues, setFormValues] = useState({
     email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
 
   const [error, setError] = useState<string | null>(null);
 
+  const passwordLength = 6;
+
   const onInputChange: React.ComponentProps<"input">["onChange"] = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
+
   const onRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -33,6 +37,11 @@ export default function Register() {
       return;
     }
 
+    if (formValues.password.length < passwordLength) {
+      setError("Пароль должен содержать не менее 6 символов");
+      return;
+    }
+
     if (formValues.password !== formValues.confirmPassword) {
       setError("Пароли не совпадают");
       return;
@@ -42,10 +51,11 @@ export default function Register() {
       const response = await regUser({
         email: formValues.email,
         password: formValues.password,
+        username: formValues.username,
       });
       setError(null);
       setUser(response);
-      navigate(AppRoutes.MAIN);
+      navigate(AppRoutes.LOGIN);
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message.includes("почта уже используется")) {
@@ -64,8 +74,14 @@ export default function Register() {
   return (
     <div className="inset-0 flex items-center justify-center bg-[#eaeef6] absolute z-10 bg-dark-gray/50 top-0 left-0">
       <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
+      <button
+          onClick={() => navigate(AppRoutes.MAIN)}
+          className="absolute top-4 right-4 text-[#94a6be] hover:text-[#666666] text-3xl transition-colors duration-200"
+        >
+          ×
+        </button>
         <div className="flex justify-center mb-4">
-          <img src="/logoModal.png" alt="logo_modal" />
+          <img src="/img/logo.png" alt="logo_modal" />
         </div>
 
         <form
@@ -73,9 +89,18 @@ export default function Register() {
           onSubmit={onRegister}
         >
           <div className="gap-2.5">
-            <input
-              className="input-class"
+          <input
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="text"
+              value={formValues.username}
+              placeholder="Имя пользователя"
+              name="username"
+              onChange={onInputChange}
+            />
+
+            <input
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              type="email"
               value={formValues.email}
               placeholder="Эл.почта"
               name="email"
@@ -83,7 +108,7 @@ export default function Register() {
             />
 
             <input
-              className="input-class"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="password"
               value={formValues.password}
               placeholder="Пароль"
@@ -92,7 +117,7 @@ export default function Register() {
             />
 
             <input
-              className="input-class"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="password"
               value={formValues.confirmPassword}
               placeholder="Повторите пароль"
@@ -104,7 +129,7 @@ export default function Register() {
           {error && <p className="text-red-500">{error}</p>}
 
           <button
-            className="btn-primary w-[280px] h-[52px] mt-8 mb-2.5 active:bg-[#000000] active:text-white"
+            className="w-[280px] h-[52px] bg-[#BCEC30] text-[18px] font-normal text-black mt-8 mb-2.5 rounded-[46px] hover:bg-[#C6FF00] active:bg-[#000000] active:text-white"
             type="submit"
           >
             Зарегистрироваться
