@@ -52,7 +52,7 @@ const Reset = () => {
   }, [currentPassword, newPassword, confirmPassword]);
 
   return (
-    <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0">
+    <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-gray/50 top-0 left-0">
       <div className="block w-full min-h-screen mx-auto my-0">
         <div className="flex fixed inset-0 items-center justify-center z-50 ">
           <div className="flex bg-white w-[360px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[60px] py-[50px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5] flex-col items-center">
