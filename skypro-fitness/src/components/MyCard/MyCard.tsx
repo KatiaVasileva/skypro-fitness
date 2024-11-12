@@ -23,7 +23,7 @@ function MyCard({ courseId }: { courseId: string }) {
   };
 
   return (
-    <div className="flex flex-col w-[323px] gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md">
+    <div className="flex flex-col w-[343px] gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md">
       <img className="w-full" src={`/img/workout_${course[0].order}.png`} />
       <img
         className="absolute top-4 right-4"

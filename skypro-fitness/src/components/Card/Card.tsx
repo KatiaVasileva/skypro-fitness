@@ -61,7 +61,7 @@ function Card({ course }: { course: CourseType }) {
   return (
     <>
       <div
-        className="flex flex-col gap-7 bg-white w-[360px] rounded-3xl relative cursor-pointer shadow-md"
+        className="flex flex-col gap-7 bg-white w-[343px] md:w-[360px] rounded-3xl relative cursor-pointer shadow-md"
         onClick={handleCardClick}
       >
         <img className="w-full" src={`/img/workout_${course.order}.png`} />

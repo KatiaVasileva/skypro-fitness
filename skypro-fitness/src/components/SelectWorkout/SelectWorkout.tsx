@@ -15,8 +15,8 @@ function WorkoutSelect({ courseId }: { courseId: string | undefined }) {
 
   return (
     <div className="w-full flex justify-center">
-      <div className=" w-[460px] min-h-[10px] top-[113px] left-[7211px] p-[40px] gap-[18px] rounded-[30px] bg-[#f8fafc] shadow-md">
-        <h2 className="text-4xl font-normal leading-[2.20rem] mb-10">
+      <div className="w-[343px] md:w-[460px] min-h-[10px] top-[113px] left-[7211px] p-[40px] gap-[18px] rounded-[30px] bg-[#f8fafc] shadow-md">
+        <h2 className="text-3xl md:text-4xl font-normal leading-[2.20rem] mb-10">
           Выберите тренировку
         </h2>
         <div className="mb-12">

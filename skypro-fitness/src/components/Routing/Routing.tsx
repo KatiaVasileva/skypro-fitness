@@ -9,6 +9,7 @@ import SelectWorkoutPage from "../../pages/SelectWorkoutPage";
 import ResetPage from "../../pages/ResetPage";
 import AccountPage from "../../pages/AccountPage";
 import WorkoutVideoPage from "../../pages/WorkoutVideoPage";
+import AddProgressPage from "../../pages/AddProgressPage";
 
 export default function Routing() {
   return (
@@ -23,7 +24,9 @@ export default function Routing() {
           <Route path={AppRoutes.RESET} element={<ResetPage />} />
         </Route>
 
-        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />} />
+        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
+          <Route path={AppRoutes.ADD_PROGRESS} element={<AddProgressPage />} />
+        </Route>
         <Route
           path={AppRoutes.SELECT_WORKOUT}
           element={<SelectWorkoutPage />}

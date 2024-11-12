@@ -35,7 +35,7 @@ export const Account = () => {
           <img
             src="/img/profile2.png"
             className="w-[141px] h-[141px] md:w-[197px] md:h-[197px]"
-          />  
+          />
         </div>
         <div className="h-50 min-w-[283px] py-7 md:pl-10">
           <p className="text-black text-2xl md:text-3xl font-medium mb-7">
@@ -89,6 +89,12 @@ export const Account = () => {
           </button>
         </>
       )}
+
+      <div className="flex justify-end md:justify-center ">
+        <button className="btn-primary w-32">
+          <a href="#top">Наверх ↑</a>
+        </button>
+      </div>
     </div>
   );
 };

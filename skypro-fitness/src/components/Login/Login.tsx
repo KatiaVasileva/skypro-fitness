@@ -64,7 +64,7 @@ export const Login = () => {
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
             className="w-[220px] h-[35px] mx-auto"
-            src="public/logoModal.png"
+            src="/img/logo.png"
             alt="logo_modal"
           />
           <form
