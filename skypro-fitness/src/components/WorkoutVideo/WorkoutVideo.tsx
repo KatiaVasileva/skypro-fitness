@@ -39,7 +39,7 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
   return (
     <div className="">
       <div className="w-full h-full md:pt-12 pb-48">
-        <main className="pt-10">
+        <main className="">
           <p className="text-start text-2xl font-medium mb-2 md:mb-6 md:text-6xl">
             {course[0].nameRU}
           </p>
@@ -48,9 +48,9 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
               <span className="md:underline md:underline-offset-8">
                 {workout[0].name}
               </span>
-              <span>{" / "}</span>
               {workout[0].course ? (
                 <span>
+                  <span>{" / "}</span>
                   <span className="md:underline md:underline-offset-8">
                     {workout[0].course}
                   </span>
@@ -92,23 +92,17 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 items-center md:items-end">
-              <div className="flex justify-center md:block">
-                <button
+            <div className="flex flex-col gap-y-3 w-full md:flex-row md:gap-4 items-center md:items-end">
+              <div className="md:block">
+                <button 
                   onClick={addProgress}
-                  className="btn-primary mt-7 flex pl-12 pr-12 pt-3 pb-3"
+                  className="btn-primary w-full h-[52px]"
                 >
                   Заполнить свой прогресс
                 </button>
               </div>
-              {/* {isAddProgressOpen && (
-                <AddProgress
-                  workoutId={workoutId}
-                  setIsAddProgressOpen={setIsAddProgressOpen}
-                />
-              )} */}
               <button
-                className="btn-primary w-full md:w-52 h-[52px]"
+                className="btn-primary w-[248px] md:w-52 h-[52px]"
                 onClick={handleBackButton}
               >
                 Назад
