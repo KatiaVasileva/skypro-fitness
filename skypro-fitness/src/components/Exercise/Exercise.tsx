@@ -17,7 +17,7 @@ function Exercise({
 //     : 0;
 
   return (
-    <div className="pb-5">
+    <div className="">
       <p className="text-[16px] md:text-[18px]">{exercise.name + " (" + exercise.quantity + " повторений) " + Math.floor(50) + " %"} </p>
       <progress
         className="h-1.5 w-[280px] md:w-[320px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
