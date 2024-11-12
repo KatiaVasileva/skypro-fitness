@@ -1,44 +1,43 @@
 import { useState } from "react";
-import { useWorkoutContext } from "../../../hooks/useWorkoutContext";
-import { ExerciseType } from "../../../types/WorkoutType.type";
-import ProgressInput from "../ProgressInput/ProgressInput";
+import { useWorkoutContext } from "../../hooks/useWorkoutContext";
+import { ExerciseType } from "../../types/WorkoutType.type";
+import ProgressInput from "../popups/ProgressInput/ProgressInput";
+import { useNavigate } from "react-router-dom";
 // import { useUserContext } from "../../../hooks/useUserContext";
 // import { useState } from "react";
 
 type AddProgressPropsType = {
-  // courseId: string | undefined;
+  courseId: string | undefined;
   workoutId: string | undefined;
-  setIsAddProgressOpen: (isAddProgressOpen: boolean) => void;
 };
 
-function AddProgress({
-  workoutId,
-  setIsAddProgressOpen,
-}: AddProgressPropsType) {
+function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
+  const navigate = useNavigate();
   const { workouts } = useWorkoutContext();
-//   const { user } = useUserContext();
+  //   const { user } = useUserContext();
   const workout = workouts.filter((workout) => workout._id === workoutId);
   const [exercises, setExercises] = useState(workout[0].exercises);
 
   const handleCloseButton = () => {
-    setIsAddProgressOpen(false);
+    navigate("/workout/" + courseId + "/" + workoutId);
   };
 
   const handleSaveButton = () => {
     // if (user && exercises) {
     //   addWorkoutProgressToUser(user.uid, workout[0]._id, exercises);
     // }
-    setIsAddProgressOpen(false);
   };
 
   return (
     <div className="">
-      <div className="block overflow-x-hidden z-50 top-[70px] left-[-100px]">
-        <div className="flex inset-0 items-center justify-center absolute z-10 bg-dark-gray/50">
-          <div className="bg-white rounded-[30px] w-[426px] max-h-max p-[40px] flex flex-col items-center gap-[48px] mx-auto ">
-            <div className="text-start">
-              <div className="pb-[48px] flex justify-between">
-                <p className="text-[32px]  font-normal">Мой прогресс</p>
+      <div className="block w-full h-full overflow-x-hidden fixed z-10 bg-gray/50 top-0 left-0">
+        <div className="flex fixed inset-0 items-center justify-center z-50">
+          <div className="flex bg-white rounded-[30px] w-[343px] md:w-[426px] min-h-[425px] p-[40px] flex-col items-center gap-[24px] md:gap-[48px] mx-auto">
+            <div className="w-[300px] md:w-full md:text-start">
+              <div className="pb-[30px] md:pb-[48px] flex justify-between">
+                <p className="text-[24px] md:text-[32px] font-normal">
+                  Мой прогресс
+                </p>
                 <div onClick={handleCloseButton} className=" z-[1]">
                   <svg
                     className="h-[20px] w-[20px] opacity-[20%] cursor-pointer"
@@ -89,7 +88,7 @@ function AddProgress({
               </div>
               <div className="flex justify-center">
                 <button
-                  className="btn-primary w-[346px] mt-10 flex pl-[128px] pt-3 pb-3"
+                  className="btn-primary w-[334px] md:w-full mt-10 pt-3 pb-3"
                   onClick={handleSaveButton}
                 >
                   Сохранить

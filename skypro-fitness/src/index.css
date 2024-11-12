@@ -9,7 +9,7 @@
   }
 
   #root {
-    @apply max-w-80 md:max-w-2xl lg:max-w-4xl xl:max-w-6xl font-normal my-0 mx-auto py-8 px-0;
+    @apply max-w-[343px] md:max-w-2xl lg:max-w-4xl xl:max-w-6xl font-normal my-0 mx-auto py-8 px-0;
   }
 
   h1 {

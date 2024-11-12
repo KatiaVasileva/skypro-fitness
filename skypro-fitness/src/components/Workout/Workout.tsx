@@ -19,20 +19,20 @@ function Workout({
   return (
     <>
       <li
-        className="w-96 gap-[0.63rem] flex items-center mb-1 mt-1  hover:bg-[#ecfccb] active:bg-[#d9f99d] cursor-pointer"
+        className="w-80 md:w-96 gap-[0.63rem] flex items-center mb-1 mt-1 hover:bg-[#ecfccb] active:bg-[#d9f99d] cursor-pointer"
         onClick={handleWorkoutSelect}
       >
-        <img  src="/img/Check-in-Circle.png"/>
-        <div>
-          <p className="text-2xl font-normal leading-[1.65rem]  h-7 mb-2">
+        {/* <img  src="/img/Check-in-Circle.png"/> */}
+        <div className="text-wrap">
+          <p className="text-base md:text-2xl font-normal leading-[1.65rem] h-7 mb-2">
             {workout[0].name}
           </p>
-          <p className="text-base font-normal leading-[1.10rem]  h-5 ">
+          <p className="text-xs md:text-base font-normal leading-[1.10rem] h-5">
             {workout[0].course ? workout[0].course : ""}
           </p>
         </div>
       </li>
-      <div className="border w-80"></div>
+      <div className="border w-80 md:w-96"></div>
     </>
   );
 }
