@@ -54,7 +54,7 @@ function MyCard({ courseId }: { courseId: string }) {
         <div className="mt-4 mb-9">
           <p className="text-gray-600">Прогресс 50%</p>
           <progress
-            className="h-1.5 w-[260px] md:w-[300px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
+            className="h-1.5 w-[270px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
             max="100"
             value="50"
           />

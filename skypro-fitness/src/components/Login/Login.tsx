@@ -59,7 +59,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="block w-full h-full overflow-x-hidden absolute z-10 bg-gray/50 top-0 left-0">
+    <div className="block w-full h-full overflow-x-hidden fixed z-10 bg-gray/50 top-0 left-0">
       <div className="flex fixed inset-0 items-center justify-center z-50 ">
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
