@@ -28,7 +28,7 @@ export const CourseAdded = ({
                   : ""}
               </p>
             </div>
-            <button className="btn-primary" onClick={onClick}>
+            <button className="btn-primary h-[52px] w-[235px]" onClick={onClick}>
               ОК
             </button>
           </div>
