@@ -74,7 +74,7 @@ export const Login = () => {
             <div className="flex flex-col w-full mb-4 items-center gap-[10px]">
               <input
                 type="email"
-                placeholder="Логин"
+                placeholder="Электронная почта"
                 name="email"
                 value={formValues.email}
                 onChange={onInputChange}
