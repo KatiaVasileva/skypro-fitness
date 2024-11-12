@@ -39,7 +39,7 @@ function Main() {
 
   return (
     <div className="container">
-      <div className="flex flex-row mt-2 md:mt-16 h-30 gap-4">
+      <div className="flex flex-row mt-10 md:mt-16 h-30 gap-4">
         <div className="h-30 basis-full md:basis-3/4">
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-medium text-black">
             Начните заниматься спортом и улучшите качество жизни

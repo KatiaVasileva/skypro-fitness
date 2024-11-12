@@ -84,12 +84,12 @@ function Card({ course }: { course: CourseType }) {
           />
         )}
 
-        <div className="mx-7">
+        <div className="mx-6">
           <h3 className="text-3xl font-semibold pb-6 text-black">
             {course.nameRU}
           </h3>
           <div className="flex flex-row flex-wrap gap-1 mb-2">
-            <div className="flex flex-row flex-wrap gap-2 w-28 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
+            <div className="flex flex-row flex-wrap gap-1 w-[103px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
               <img
                 className="h-4 w-4"
                 src="./img/calendar.png"
@@ -97,7 +97,7 @@ function Card({ course }: { course: CourseType }) {
               ></img>
               <p className="text-black">{course.time}</p>
             </div>
-            <div className="flex flex-row gap-2 w-44 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
+            <div className="flex flex-row gap-1 w-[160px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
               <img
                 className="h-4 w-4"
                 src="./img/time.png"
@@ -106,7 +106,7 @@ function Card({ course }: { course: CourseType }) {
               <p className="text-black">{course.duration}</p>
             </div>
           </div>
-          <div className="flex flex-row gap-2 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-2">
+          <div className="flex flex-row gap-1 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-2">
             <img
               className="h-4 w-4"
               src={`/img/difficulty_${course.difficulty}.png`}

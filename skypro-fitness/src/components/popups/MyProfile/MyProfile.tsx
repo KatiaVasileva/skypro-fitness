@@ -18,7 +18,7 @@ export const MyProfile = ({setIsOpen} : {setIsOpen: (isOpen: boolean) => void}) 
 
   return (
     <div className="">
-      <div className="block overflow-x-hidden absolute z-50 top-[70px] left-[-100px]">
+      <div className="block overflow-x-hidden absolute z-50 top-[50px] md:top-[70px] left-[-190px] md:left-[-100px]">
         <div className="bg-white rounded-[30px] w-[266px] min-h-[258px] p-[30px] flex flex-col items-center shadow-md">
           <div className="mb-8 text-lg font-normal">
             <h3 className="text-center">{user ? user.displayName : ""}</h3>
