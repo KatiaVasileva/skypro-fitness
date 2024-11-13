@@ -1,10 +1,11 @@
-import "./App.css";
+import UserProvider from "./context/UserContext.tsx";
+import Routing from "./components/Routing/Routing";
 
 function App() {
   return (
-    <>
-      <h1 className="text-10xl font-bold underline">Hello world!</h1>
-    </>
+    <UserProvider>
+      <Routing />
+    </UserProvider>
   );
 }
 
