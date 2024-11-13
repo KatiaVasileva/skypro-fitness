@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppRoutes } from "../../lib/appRoutes";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useState } from "react";
@@ -8,9 +8,15 @@ function Header() {
   const navigate = useNavigate();
   const { user } = useUserContext();
   const [isOpen, setIsOpen] = useState(false);
+  const { id } = useParams();
+  const courseId = id;
 
   const handleLoginButton = () => {
-    navigate(AppRoutes.LOGIN);
+    if (courseId) {
+      navigate("/course/" + courseId + "/login");
+    } else {
+      navigate(AppRoutes.LOGIN);
+    }
   };
 
   const toggleProfileClick = () => {
@@ -43,8 +49,14 @@ function Header() {
         {user && (
           <div className="relative">
             <div className="flex flex-row items-center w-42 gap-3">
-              <img src="/img/profile.png" className="w-12 h-12" alt="profile"></img>
-              <p className="hidden md:block text-2xl font-normal text-black">{user.displayName}</p>
+              <img
+                src="/img/profile.png"
+                className="w-12 h-12"
+                alt="profile"
+              ></img>
+              <p className="hidden md:block text-2xl font-normal text-black">
+                {user.displayName}
+              </p>
               <img
                 src="/img/rectangle.png"
                 className="w-4 h-3 cursor-pointer"
@@ -52,7 +64,7 @@ function Header() {
                 alt="triangle_profile_window"
               ></img>
             </div>
-            {isOpen && <MyProfile setIsOpen={setIsOpen}/>}
+            {isOpen && <MyProfile setIsOpen={setIsOpen} />}
           </div>
         )}
       </div>

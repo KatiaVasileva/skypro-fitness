@@ -4,7 +4,11 @@ import { AppRoutes } from "../../lib/appRoutes";
 import { regUser } from "../../api/apiUser";
 import { useUserContext } from "../../hooks/useUserContext";
 
-export default function Register() {
+export default function Register({
+  courseId,
+}: {
+  courseId: string | undefined;
+}) {
   const { setUser } = useUserContext();
   const navigate = useNavigate();
 
@@ -55,7 +59,11 @@ export default function Register() {
       });
       setError(null);
       setUser(response);
-      navigate(AppRoutes.LOGIN);
+      if (courseId) {
+        navigate("/course/" + courseId + "/login");
+      } else {
+        navigate(AppRoutes.LOGIN);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message.includes("почта уже используется")) {
@@ -83,7 +91,7 @@ export default function Register() {
           onSubmit={onRegister}
         >
           <div className="gap-2.5">
-          <input
+            <input
               className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
               type="text"
               value={formValues.username}
@@ -131,7 +139,7 @@ export default function Register() {
 
           <Link
             className="w-[280px] h-[52px] border border-black text-[18px] text-black flex items-center justify-center bg-white rounded-[46px] hover:bg-[#F7F7F7] active:bg-[#E9ECED]"
-            to={AppRoutes.LOGIN}
+            to={courseId ? "/course/" + courseId + "/login" : AppRoutes.LOGIN}
           >
             Войти
           </Link>
