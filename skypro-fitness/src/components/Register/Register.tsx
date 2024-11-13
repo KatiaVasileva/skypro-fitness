@@ -82,6 +82,12 @@ export default function Register({
   return (
     <div className="inset-0 flex items-center justify-center bg-[#eaeef6] fixed z-10 bg-gray/50 top-0 left-0">
       <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
+      <button
+          onClick={() => navigate(AppRoutes.MAIN)}
+          className="absolute top-4 right-4 text-[#94a6be] hover:text-[#666666] text-3xl transition-colors duration-200"
+        >
+          ×
+        </button>
         <div className="flex justify-center mb-4">
           <img src="/img/logo.png" alt="logo_modal" />
         </div>

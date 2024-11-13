@@ -13,7 +13,6 @@ const Reset = () => {
 
   const passwordLength = 6;
 
-
   const handleChangePassword = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
