@@ -16,7 +16,9 @@ function MyCard({ courseId }: { courseId: string }) {
     navigate("/course/" + course[0].order);
   };
 
-  const handleWorkoutButton = () => {
+  const handleWorkoutButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
     navigate("/selectworkout/" + course[0]._id);
   };
 

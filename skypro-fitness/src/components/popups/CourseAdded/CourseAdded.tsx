@@ -10,7 +10,7 @@ export const CourseAdded = ({
   isDeleteCoursePressed,
 }: CourseAddedProps) => {
   return (
-    <div className="w-full h-full overflow-x-hidden absolute z-10 bg-dark-gray/50 top-0 left-0">
+    <div className="block w-full h-full overflow-x-hidden fixed z-10 bg-gray/50 top-0 left-0">
       <div className="block w-screen min-h-screen mx-auto my-0">
         <div className="h-screen flex items-center">
           <div className="flex flex-col items-center gap-[30px] bg-white w-[360px] min-h-[200px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[40px] py-[40px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
