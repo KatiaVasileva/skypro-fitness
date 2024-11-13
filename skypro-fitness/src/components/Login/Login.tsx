@@ -8,9 +8,7 @@ import { useUserContext } from "../../hooks/useUserContext";
 export const Login = ({courseId}: {courseId :string | undefined}) => {
   const { setUser } = useUserContext();
   const navigate = useNavigate();
-
-  console.log(courseId);
-
+  
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
