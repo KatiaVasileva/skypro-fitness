@@ -5,9 +5,11 @@ import { AppRoutes } from "../../lib/appRoutes";
 import { loginUser } from "../../api/apiUser";
 import { useUserContext } from "../../hooks/useUserContext";
 
-export const Login = () => {
+export const Login = ({courseId}: {courseId :string | undefined}) => {
   const { setUser } = useUserContext();
   const navigate = useNavigate();
+
+  console.log(courseId);
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -49,7 +51,11 @@ export const Login = () => {
       });
 
       setUser(user);
-      navigate(AppRoutes.MAIN);
+      if (courseId) {
+        navigate("/course/" + courseId);
+      } else {
+        navigate(AppRoutes.MAIN);
+      }
     } catch (error: unknown) {
       console.error(error);
       setPasswordError(
@@ -58,9 +64,17 @@ export const Login = () => {
     }
   };
 
+  const handleRegisterButton = () => {
+    if (courseId) {
+      navigate("/course/" + courseId + "/register");
+    } else {
+      navigate(AppRoutes.REGISTER);
+    }
+  }
+
   return (
-    <div className="block w-full h-full overflow-x-hidden fixed z-10 bg-gray/50 top-0 left-0">
-      <div className="flex fixed inset-0 items-center justify-center z-50 ">
+    <div className="block w-full h-full overflow-x-hidden fixed z-50 bg-gray/50 top-0 left-0">
+      <div className="flex fixed z-auto inset-0 items-center justify-center">
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
             className="w-[220px] h-[35px] mx-auto"
@@ -117,7 +131,7 @@ export const Login = () => {
               </button>
               <button
                 className="border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
-                onClick={() => navigate(AppRoutes.REGISTER)}
+                onClick={handleRegisterButton}
               >
                 Зарегистрироваться
               </button>

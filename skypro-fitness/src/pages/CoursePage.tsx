@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import Course from "../components/Course/Course";
 import Header from "../components/Header/Header";
 
@@ -9,6 +9,7 @@ export default function CoursePage() {
     <>
       <Header />
       <Course courseId={id} />
+      <Outlet />
     </>
   );
 }
