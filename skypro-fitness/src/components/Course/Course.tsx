@@ -87,18 +87,22 @@ function Course({ courseId }: { courseId: string | undefined }) {
         <div className="flex flex-col mt-14 gap-14">
           <div
             className={`relative h-[389px] ${color} rounded-3xl bg-cover bg-center p-4 md:h-80`}
-            //style={{ backgroundImage: `url(/img/course_${courseId}.png)` }}
           >
             <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible">
               {course[0].nameRU}
             </h3>
-         
-               <img
+
+            <picture>
+              <source
+                srcSet={`/img/coursemin_${courseId}.png`}
+                media="(max-width: 1000px)"
+              />
+              <img
                 src={`/img/course_${courseId}.png`}
                 className="absolute bottom-0 right-0 md:h-full rounded-3xl"
                 alt="sport"
               />
-            
+            </picture>
           </div>
           <div>
             <h3 className=" text-black font-medium text-2xl/6 text-left md:font-semibold md:text-4xl pb-6 md:pb-10">
