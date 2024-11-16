@@ -5,14 +5,15 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as router from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { ProgressCounted } from "./ProgressCounted";
 import UserProvider from "../../context/UserContext";
 import CoursesProvider from "../../context/CoursesContext";
-import Register from "./Register";
-import { BrowserRouter } from "react-router-dom";
+import WorkoutProvider from "../../context/WorkoutContext";
 
 const navigate = jest.fn();
 
-describe("Register component", () => {
+describe("ProgressCounted component", () => {
   beforeEach(() => {
     jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
   });
@@ -22,7 +23,9 @@ describe("Register component", () => {
       <BrowserRouter>
         <UserProvider>
           <CoursesProvider>
-            <Register courseId={undefined} />
+            <WorkoutProvider>
+              <ProgressCounted courseId={undefined} workoutId={undefined}/>
+            </WorkoutProvider>
           </CoursesProvider>
         </UserProvider>
       </BrowserRouter>

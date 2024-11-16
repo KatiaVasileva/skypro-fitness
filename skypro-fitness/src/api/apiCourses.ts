@@ -61,7 +61,6 @@ export const addCourseToUser = async (uid: string, courseId: string) => {
       };
 
       await update(userRef, { courses: updatedCourses });
-      // return updatedCourses;
     } else {
       throw new Error("Пользователь не найден");
     }
@@ -85,8 +84,6 @@ export const deleteCourseFromUser = async (uid: string, courseId: string) => {
         delete updatedCourses[courseId];
 
         await update(userRef, { courses: updatedCourses });
-
-        // return updatedCourses;
       } else {
         throw new Error("Курс не найден у пользователя");
       }
@@ -148,7 +145,6 @@ export const getCourseWorkouts = async (courseId: string) => {
   }
 };
 
-// !!!!
 export const addExerciseProgressToUser = async (
   uid: string | undefined,
   workoutId: string | undefined,
@@ -173,7 +169,6 @@ export const addExerciseProgressToUser = async (
   }
 };
 
-/// !!!!
 export const addWorkoutProgressToUser = async (
   uid: string | undefined,
   workoutId: string | undefined,
@@ -198,31 +193,6 @@ export const addWorkoutProgressToUser = async (
   }
 };
 
-// !!!!
-export const getWorkoutProgressFromUser = async (
-  userId: string,
-  courseId: string | undefined,
-  workoutId: string | undefined
-) => {
-  const userProgressRef = ref(
-    db,
-    `users/${userId}/courses/${courseId}/workouts/${workoutId}/exercises`
-  );
-
-  try {
-    const snapshot = await get(userProgressRef);
-    if (snapshot.exists()) {
-      return snapshot.val();
-    } else {
-      console.log("No progress data available for this user.");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching user progress:", error);
-    return null;
-  }
-};
-
 export const getProgress = async (
   userId: string | undefined,
   courseId: string | undefined,
@@ -238,7 +208,6 @@ export const getProgress = async (
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
-      // console.log("No progress data available for this user.");
       return null;
     }
   } catch (error) {
@@ -261,7 +230,6 @@ export const getWorkoutProgress = async (
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
-      // console.log("No progress data available for this user.");
       return null;
     }
   } catch (error) {

@@ -7,12 +7,12 @@ import "@testing-library/jest-dom";
 import * as router from "react-router";
 import UserProvider from "../../context/UserContext";
 import CoursesProvider from "../../context/CoursesContext";
-import Register from "./Register";
 import { BrowserRouter } from "react-router-dom";
+import Reset from "./Reset";
 
 const navigate = jest.fn();
 
-describe("Register component", () => {
+describe("Reset component", () => {
   beforeEach(() => {
     jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
   });
@@ -22,7 +22,7 @@ describe("Register component", () => {
       <BrowserRouter>
         <UserProvider>
           <CoursesProvider>
-            <Register courseId={undefined} />
+            <Reset />
           </CoursesProvider>
         </UserProvider>
       </BrowserRouter>

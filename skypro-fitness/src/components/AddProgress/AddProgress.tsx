@@ -71,7 +71,7 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
               </div>
               <div
                 className="text-[18px] h-[346px] flex flex-col gap-[20px] overflow-y-scroll 
-              [&::-webkit-scrollbar]:bg-custom 
+              [&::-webkit-scrollbar]:bg-light-gray 
               [&::-webkit-scrollbar]:w-[6px] 
               [&::-webkit-scrollbar]:rounded-[10px] 
               [&::-webkit-scrollbar-thumb]:bg-black

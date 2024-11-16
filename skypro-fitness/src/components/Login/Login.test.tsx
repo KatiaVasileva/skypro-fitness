@@ -20,7 +20,7 @@ describe("Login component", () => {
     const { container } = render(
       <UserProvider>
         <CoursesProvider>
-          <Login />
+          <Login courseId={undefined} />
         </CoursesProvider>
       </UserProvider>
     );
