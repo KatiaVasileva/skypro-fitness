@@ -40,7 +40,7 @@ const Reset = () => {
       await updatePassword(user, newPassword);
       setMessage("Пароль успешно изменен.");
       setTimeout (() => {
-        navigate(AppRoutes.LOGIN);
+        navigate(AppRoutes.ACCOUNT);
       }, 2000);
     } catch (err) {
       setError((err as Error).message ||"Ошибка при смене пароля. Попробуйте снова.");

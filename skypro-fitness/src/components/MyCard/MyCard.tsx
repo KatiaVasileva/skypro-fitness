@@ -26,7 +26,7 @@ function MyCard({ course }: { course: CourseType }) {
       setIsNewStart(true);
     }
     if (workoutProgress < 100) {
-      navigate("/selectworkout/" + course._id);
+      navigate("/account/selectworkout/" + course._id);
     }
   };
 
@@ -53,7 +53,7 @@ function MyCard({ course }: { course: CourseType }) {
               workout._id,
               exercise.name
             );
-            if (exerciseProgress === exercise.quantity) {
+            if (exerciseProgress >= exercise.quantity) {
               exerciseCompletedQuantity = exerciseCompletedQuantity + 1;
             }
             const courseProgress = Math.ceil(

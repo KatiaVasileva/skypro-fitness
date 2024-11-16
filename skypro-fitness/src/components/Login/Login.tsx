@@ -47,7 +47,6 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
         login: formValues.email,
         password: formValues.password,
       });
-
       setUser(user);
       if (courseId) {
         navigate("/course/" + courseId);
@@ -128,7 +127,7 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
                 Войти
               </button>
               <button
-                className="border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
+                className="btn-primary-white border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
                 onClick={handleRegisterButton}
               >
                 Зарегистрироваться

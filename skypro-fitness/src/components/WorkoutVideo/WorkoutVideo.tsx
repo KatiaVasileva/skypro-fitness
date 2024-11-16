@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useWorkoutContext } from "../../hooks/useWorkoutContext";
-// import { useUserContext } from "../../hooks/useUserContext";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
 import Exercise from "../Exercise/Exercise";
 import { useUserContext } from "../../hooks/useUserContext";
@@ -45,7 +44,7 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
   };
 
   const handleBackButton = () => {
-    navigate("/selectworkout/" + courseId);
+    navigate("/account/selectworkout/" + courseId);
   };
 
   return (

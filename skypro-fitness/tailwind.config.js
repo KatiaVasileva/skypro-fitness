@@ -10,6 +10,7 @@ export default {
     },
     extend: {
       colors: {
+        "pale-gray": "C4C4C4",
         "light-gray": "#F7F7F7",
         "dark-gray": "#151720",
         "grayish": "FAFAFA",

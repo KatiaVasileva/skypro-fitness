@@ -78,7 +78,7 @@ export const Account = () => {
               Изменить пароль
             </button>
             <button
-              className="btn-primary md:w-[192px] h-14 text-black bg-white hover:bg-light-gray border border-black"
+              className="btn-primary-white md:w-[192px] h-14"
               onClick={handleLogoutButton}
             >
               Выйти

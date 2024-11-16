@@ -35,7 +35,7 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
       const progress = 100;
       addWorkoutProgressToUser(user.uid, workoutId, courseId, progress);
     }
-    navigate("/workout/" + courseId + "/" + workoutId);
+    navigate("/workout/" + courseId + "/" + workoutId + "/counted");
   };
 
   return (
@@ -96,9 +96,9 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
                   />
                 ))}
               </div>
-              <div className="flex justify-center">
+              <div className="flex flex-col justify-center">
                 <button
-                  className="btn-primary w-[334px] md:w-full mt-10 pt-3 pb-3"
+                  className="btn-primary w-full mt-10 pt-3 pb-3"
                   onClick={handleSaveButton}
                 >
                   {exercises.length > 0 ? "Сохранить" : "Выполнено"}

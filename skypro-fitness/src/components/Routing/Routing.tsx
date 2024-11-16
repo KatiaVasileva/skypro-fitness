@@ -11,23 +11,32 @@ import AccountPage from "../../pages/AccountPage";
 import WorkoutVideoPage from "../../pages/WorkoutVideoPage";
 import AddProgressPage from "../../pages/AddProgressPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ProgressCountedPage from "../../pages/ProgressCountedPage";
 
 export default function Routing() {
   return (
     <>
       <Routes>
         <Route element={<PrivateRoute />}>
-        <Route path={AppRoutes.ACCOUNT} element={<AccountPage />}>
-          <Route path={AppRoutes.RESET} element={<ResetPage />} />
-        </Route>
+          <Route path={AppRoutes.ACCOUNT} element={<AccountPage />}>
+            <Route path={AppRoutes.RESET} element={<ResetPage />} />
+            <Route
+              path={AppRoutes.SELECT_WORKOUT}
+              element={<SelectWorkoutPage />}
+            />
+          </Route>
 
-        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
-          <Route path={AppRoutes.ADD_PROGRESS} element={<AddProgressPage />} />
-        </Route>
-        <Route
-          path={AppRoutes.SELECT_WORKOUT}
-          element={<SelectWorkoutPage />}
-        />
+          <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
+            <Route
+              path={AppRoutes.ADD_PROGRESS}
+              element={<AddProgressPage />}
+            />
+             <Route
+              path={AppRoutes.PROGRESS_COUNTED}
+              element={<ProgressCountedPage />}
+            />
+          </Route>
+ 
         </Route>
 
         <Route path={AppRoutes.MAIN} element={<MainPage />}>
@@ -39,18 +48,6 @@ export default function Routing() {
           <Route path={AppRoutes.COURSE_LOGIN} element={<LoginPage />} />
           <Route path={AppRoutes.COURSE_REGISTER} element={<RegisterPage />} />
         </Route>
-
-        {/* <Route path={AppRoutes.ACCOUNT} element={<AccountPage />}>
-          <Route path={AppRoutes.RESET} element={<ResetPage />} />
-        </Route>
-
-        <Route path={AppRoutes.WORKOUT} element={<WorkoutVideoPage />}>
-          <Route path={AppRoutes.ADD_PROGRESS} element={<AddProgressPage />} />
-        </Route>
-        <Route
-          path={AppRoutes.SELECT_WORKOUT}
-          element={<SelectWorkoutPage />}
-        /> */}
         <Route path={AppRoutes.NOT_FOUND} element={<NotFoundPage />} />
       </Routes>
     </>
