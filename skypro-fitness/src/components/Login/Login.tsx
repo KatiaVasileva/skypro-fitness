@@ -18,6 +18,9 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
@@ -61,7 +64,10 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
     }
   };
 
-  const handleRegisterButton = () => {
+  const handleRegisterButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    
     if (courseId) {
       navigate("/course/" + courseId + "/register");
     } else {
@@ -70,7 +76,7 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
   }
 
   return (
-    <div className="block w-full h-full overflow-x-hidden fixed z-50 bg-gray/50 top-0 left-0">
+    <div className="block w-full h-full overflow-x-hidden fixed z-50 bg-gray/50 top-0 left-0" >
       <div className="flex fixed z-auto inset-0 items-center justify-center">
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
@@ -123,11 +129,11 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
               </>
             )}
             <div className="mt-[24px] flex flex-col w-full items-center gap-[10px]">
-              <button className="bg-[#BCEC30] text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] hover:bg-[#C6FF00] border-none active:bg-black active:text-white">
+              <button className="btn-primary w-full h-[52px] rounded-[46px]">
                 Войти
               </button>
               <button
-                className="btn-primary-white border border-black text-black w-full h-[52px] rounded-[46px] py-[16px] px-[26px] bg-white hover:bg-[#F7F7F7] active:bg-[#E9ECED] active:text-black"
+                className="btn-primary-white border border-black text-black w-full h-[52px] rounded-[46px]"
                 onClick={handleRegisterButton}
               >
                 Зарегистрироваться

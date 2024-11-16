@@ -5,7 +5,7 @@
 @layer base {
   html,
   body {
-    @apply w-full h-full font-sans bg-light-gray m-0 p-0 box-border;
+    @apply w-full h-full font-sans bg-light-gray m-0 p-0 box-border scroll-smooth;
   }
 
   #root {
@@ -31,7 +31,7 @@
   }
 
   .btn-primary-white {
-    @apply rounded-3xl px-4 md:px-6 py-1 text-lg text-black font-normal bg-white hover:bg-light-gray border border-black cursor-pointer shadow-md;
+    @apply rounded-3xl px-4 md:px-5 text-lg text-black font-normal bg-white hover:bg-light-gray border border-black cursor-pointer shadow-md;
   }
 
   .input-class {
