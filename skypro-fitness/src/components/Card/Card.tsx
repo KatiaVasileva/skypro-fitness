@@ -20,7 +20,7 @@ function Card({ course }: { course: CourseType }) {
   useEffect(() => {
     if (user) {
       getUserCourses(user.uid).then((data) => {
-        const userCourses: Array<string> = data;
+        const userCourses: Array<string> = Object.keys(data);
         setUserCourses(userCourses);
       });
     }

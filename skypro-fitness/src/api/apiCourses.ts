@@ -1,116 +1,271 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { db } from "../lib/firebaseConfig";
+import { WorkoutType } from "../types/WorkoutType.type";
+import { CourseType } from "../types/CourseType.type";
+import { child, get, ref, update } from "firebase/database";
 
-import {
-  arrayRemove,
-  arrayUnion,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  getFirestore,
-  updateDoc,
-} from "firebase/firestore";
-import { app, db } from "../lib/firebaseConfig";
+export const getUser = async (uid: string) => {
+  try {
+    const snapshot = await get(child(ref(db), `users/${uid}`));
+
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const getCourses = async () => {
-  const db = getFirestore(app);
-  const querySnapshot = await getDocs(collection(db, "courses"));
-  const courses: any[] = [];
-  querySnapshot.forEach((doc) => {
-    courses.push({ id: doc.id, ...doc.data() });
-  });
+  let courses: CourseType[] = [];
+  try {
+    const dbRef = ref(db, "courses");
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      courses = Object.values(snapshot.val());
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
   return courses;
 };
 
 export const getUserCourses = async (uid: string) => {
-  const docRef = doc(db, "users", uid);
-  const docSnap = await getDoc(docRef);
+  const docRef = ref(db, `users/${uid}`);
+  const docSnap = await get(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data().courses;
+    return docSnap.val().courses;
   } else {
     console.log("No such document!");
   }
 };
 
 export const addCourseToUser = async (uid: string, courseId: string) => {
-  const db = getFirestore();
-  const userRef = doc(db, "users", uid);
+  try {
+    const userRef = ref(db, `users/${uid}`);
+    const snapshot = await get(userRef);
 
-  await updateDoc(userRef, {
-    courses: arrayUnion(courseId),
-  });
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+
+      if (userData.courses && userData.courses[courseId]) {
+        console.log("Курс уже добавлен.");
+        return userData.courses;
+      }
+
+      const updatedCourses = {
+        ...userData.courses,
+        [courseId]: 0,
+      };
+
+      await update(userRef, { courses: updatedCourses });
+      // return updatedCourses;
+    } else {
+      throw new Error("Пользователь не найден");
+    }
+  } catch (error) {
+    console.error("Ошибка при добавлении курса:", error);
+    throw error;
+  }
 };
 
 export const deleteCourseFromUser = async (uid: string, courseId: string) => {
-  const db = getFirestore();
-  const userRef = doc(db, "users", uid);
-  await updateDoc(userRef, {
-    courses: arrayRemove(courseId),
-  });
+  try {
+    const userRef = ref(db, `users/${uid}`);
+
+    const snapshot = await get(userRef);
+
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+
+      if (userData.courses) {
+        const updatedCourses = { ...userData.courses };
+        delete updatedCourses[courseId];
+
+        await update(userRef, { courses: updatedCourses });
+
+        // return updatedCourses;
+      } else {
+        throw new Error("Курс не найден у пользователя");
+      }
+    } else {
+      throw new Error("Пользователь не найден");
+    }
+  } catch (error) {
+    console.error("Ошибка при удалении курса:", error);
+    throw error;
+  }
 };
 
 export const getWorkouts = async () => {
-  const db = getFirestore(app);
-  const querySnapshot = await getDocs(collection(db, "workouts"));
-  const workouts: any[] = [];
-  querySnapshot.forEach((doc) => {
-    workouts.push({ id: doc.id, ...doc.data() });
-  });
+  let workouts: WorkoutType[] = [];
+  try {
+    const dbRef = ref(db, "workouts");
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      workouts = Object.values(snapshot.val());
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
   return workouts;
 };
 
-// export const addWorkoutProgressToUser = async (
-//   uid: string,
-//   workoutId: string,
-//   // workoutProgress: Array<number>
-//   exercises: Array<ExerciseType>
-// ) => {
-//   const db = getFirestore();
+export const getCourse = async (courseId: string) => {
+  try {
+    const snapshot = await get(child(ref(db), `courses/${courseId}`));
 
-//   const progress = {
-//     workout_id: workoutId,
-//     exercises: exercises,
-//   };
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-//   const docRef = doc(db, "dataUsers", uid);
-//   const docSnap = await getDoc(docRef);
+export const getCourseWorkouts = async (courseId: string) => {
+  try {
+    const courseData = await getCourse(courseId);
+    if (!courseData) throw new Error("Курс не найден");
 
-//   if (docSnap.exists()) {
-//     const workouts = docSnap.data().workouts;
-//     console.log(workouts);
-//     const workout = workouts.filter(
-//       (workout: { workout_id: string; exercises: Array<ExerciseType> }) =>
-//         workout.workout_id === workoutId
-//     );
-//     if(workout.length === 0) {
-//       await updateDoc(docRef, { workouts: arrayUnion(progress) });
-//     } else {
-//       await updateDoc(docRef, {workouts: [workouts.exercises]});
-//     }
-//   } else {
-//     console.log("No document");
-//   }
-// };
+    const snapshot = await get(ref(db, `workouts`));
+    if (snapshot.exists()) {
+      const workoutsData: Array<WorkoutType> = Object.values(snapshot.val());
+      const courseWorkouts = courseData.workouts.map((workoutId: string) =>
+        workoutsData.find((workout: WorkoutType) => workout._id === workoutId)
+      );
+      return courseWorkouts;
+    } else {
+      throw new Error("Не найдено ни одной тренировки.");
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки тренировок:", error);
+    throw error;
+  }
+};
 
-// export const getWorkoutProgressFromUser = async (
-//   uid: string,
-//   workoutId: string
-// ) => {
-//   const docRef = doc(db, "dataUsers", uid);
-//   const docSnap = await getDoc(docRef);
+// !!!!
+export const addExerciseProgressToUser = async (
+  uid: string | undefined,
+  workoutId: string | undefined,
+  courseId: string | undefined,
+  exerciseId: string,
+  workoutProgress: number
+) => {
+  try {
+    const docRef = ref(db, `users/${uid}`);
+    if (workoutProgress) {
+      await update(docRef, {
+        [`courses/${courseId}/workouts/${workoutId}/exercises/${exerciseId}/progressWorkout`]:
+          workoutProgress,
+      });
+    } else {
+      console.log("Прогресс не введен");
+      return;
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки прогресса упражнения: ", error);
+    throw error;
+  }
+};
 
-//   if (docSnap.exists()) {
-//     const workouts = docSnap.data().workouts;
-//     console.log(workouts);
-//     const workout = workouts.find(
-//       (workout: { workout_id: string; exercises: Array<ExerciseType> }) =>
-//         workout.workout_id === workoutId
-//     );
-//     console.log(workout.exercises);
-//     return workout.exercises;
-//   } else {
-//     console.log("No document");
-//   }
-// };
+/// !!!!
+export const addWorkoutProgressToUser = async (
+  uid: string | undefined,
+  workoutId: string | undefined,
+  courseId: string | undefined,
+  workoutProgress: number
+) => {
+  try {
+    const docRef = ref(db, `users/${uid}`);
+    console.log(courseId);
+    if (workoutProgress) {
+      await update(docRef, {
+        [`courses/${courseId}/workouts/${workoutId}/progressWorkout`]:
+          workoutProgress,
+      });
+    } else {
+      console.log("Прогресс не введен");
+      return;
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки прогресса упражнения: ", error);
+    throw error;
+  }
+};
 
+// !!!!
+export const getWorkoutProgressFromUser = async (
+  userId: string,
+  courseId: string | undefined,
+  workoutId: string | undefined
+) => {
+  const userProgressRef = ref(
+    db,
+    `users/${userId}/courses/${courseId}/workouts/${workoutId}/exercises`
+  );
+
+  try {
+    const snapshot = await get(userProgressRef);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      console.log("No progress data available for this user.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user progress:", error);
+    return null;
+  }
+};
+
+export const getProgress = async (
+  userId: string | undefined,
+  courseId: string | undefined,
+  workoutId: string | undefined,
+  exerciseName: string
+) => {
+  const progressRef = ref(
+    db,
+    `users/${userId}/courses/${courseId}/workouts/${workoutId}/exercises/${exerciseName}/progressWorkout`
+  );
+  try {
+    const snapshot = await get(progressRef);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      // console.log("No progress data available for this user.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user progress:", error);
+    return null;
+  }
+};
+
+export const getWorkoutProgress = async (
+  userId: string | undefined,
+  courseId: string | undefined,
+  workoutId: string | undefined
+) => {
+  const progressRef = ref(
+    db,
+    `users/${userId}/courses/${courseId}/workouts/${workoutId}/progressWorkout`
+  );
+  try {
+    const snapshot = await get(progressRef);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      // console.log("No progress data available for this user.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user progress:", error);
+    return null;
+  }
+};

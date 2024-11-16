@@ -11,15 +11,15 @@ type UserProviderProps = {
 };
 
 type UserContextData = {
-  user: User | null;
+  user: User | undefined;
   logout: () => void;
-  setUser: (newUser: User) => void;
+  setUser: (newUser: User | undefined) => void;
 };
 
 export const UserContext = createContext<UserContextData | null>(null);
 
 const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<User | null>(getUserFromLocalStorage);
+  const [user, setUser] = useState<User | undefined>(getUserFromLocalStorage);
 
   useEffect(() => {
     if (user) {
@@ -28,7 +28,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
   });
 
   const logout = () => {
-    setUser(null);
+    setUser(undefined);
     removeUserFromLocalStorage();
   };
 

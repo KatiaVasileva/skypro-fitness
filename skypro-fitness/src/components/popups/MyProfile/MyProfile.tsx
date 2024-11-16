@@ -32,7 +32,7 @@ export const MyProfile = ({setIsOpen} : {setIsOpen: (isOpen: boolean) => void}) 
             Мой профиль
           </button>
           <button
-            className="btn-primary-white w-52 h-[52px]"
+            className="btn-primary-white text-black w-52 h-[52px]"
             onClick={handleLogoutButton}
           >
             Выйти

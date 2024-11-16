@@ -10,7 +10,8 @@ export const AppRoutes = {
   ACCOUNT: "/account",
   EXIT: "/exit",
   NOT_FOUND: "*",
-  SELECT_WORKOUT:"/selectworkout/:id",
+  SELECT_WORKOUT:"/account/selectworkout/:id",
   RESET: "/account/reset",
   NEWPASSWORD: "/account/newpassword",
+  PROGRESS_COUNTED: "/workout/:course_id/:workout_id/counted"
 };
