@@ -2,13 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useEffect, useState } from "react";
 import { AppRoutes } from "../../lib/appRoutes";
-import { getUserCourses } from "../../api/apiCourses";
+import { getCourses, getUser } from "../../api/apiCourses";
 import MyCard from "../MyCard/MyCard";
+import { UserType } from "../../types/UserType.type";
+import { CourseType } from "../../types/CourseType.type";
 
 export const Account = () => {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
-  const [userCourses, setUserCourses] = useState<Array<string>>([]);
+  const [userCourses, setUserCourses] = useState<Array<CourseType>>([]);
+  const [currentUser, setCurrentUSer] = useState<UserType>();
 
   const handleResetPassword = async () => {
     navigate(AppRoutes.RESET);
@@ -20,13 +23,30 @@ export const Account = () => {
   };
 
   useEffect(() => {
-    getUserCourses(user!.uid).then((courses) => {
-      if (courses) {
-        const userCourses = Object.keys(courses);
-        setUserCourses(userCourses);
-      }
-    });
-  }, [user, userCourses]);
+    if (user) {
+      getUser(user?.uid).then((user) => {
+        setCurrentUSer(user);
+      })
+    }
+  });
+
+  useEffect(() => {
+    if (user && currentUser?.courses) {
+      getCourses()
+        .then((allCourses) => {
+          if (currentUser.courses) {
+            const courseIds = Object.keys(currentUser.courses);
+            const courses = allCourses.filter((course) =>
+              courseIds.includes(course._id.toString())
+            );
+            setUserCourses(courses);
+          }
+        })
+        .catch(() => {
+          console.log('Не удалось загрузить данные, попробуйте позже.');
+        });
+    }
+  }, [currentUser?.courses, user]);  
 
   return (
     <div className="container">
@@ -73,8 +93,8 @@ export const Account = () => {
 
       {userCourses.length > 0 && (
         <div className="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8">
-          {userCourses.map((course) => (
-            <MyCard courseId={course} key={course} />
+          {userCourses.map((course, index) => (
+            <MyCard course={course} key={index+1} />
           ))}
         </div>
       )}

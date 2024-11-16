@@ -32,12 +32,6 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   getUserCourses(user!.uid).then((courses) => {
-  //     console.log(courses);
-  //   });
-  // }, [user]);
-
   useEffect(() => {
     if(exercises.length === 0) {
       getWorkoutProgress(user?.uid, courseId, workoutId).then((progress) => {
