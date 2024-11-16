@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { CourseType } from "../../types/CourseType.type";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
-import { deleteCourseFromUser } from "../../api/apiCourses";
+import { deleteCourseFromUser, getCourseWorkouts, getProgress, getWorkoutProgress } from "../../api/apiCourses";
+import { useEffect, useState } from "react";
+import { ExerciseType, WorkoutType } from "../../types/WorkoutType.type";
 
 function MyCard({ courseId }: { courseId: string }) {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ function MyCard({ courseId }: { courseId: string }) {
   const course: CourseType[] = courses.filter(
     (course) => course._id === courseId
   );
+  const [workoutProgress, setWorkoutProgress] = useState(0);
 
   const handleCardClick = () => {
     navigate("/course/" + course[0].order);
@@ -27,6 +30,52 @@ function MyCard({ courseId }: { courseId: string }) {
     event.preventDefault();
     deleteCourseFromUser(user!.uid, courseId);
   };
+
+  useEffect(() => {
+    const calculateProgress = async () => {
+      const workouts: WorkoutType[] = await getCourseWorkouts(courseId);
+
+      let exerciseTotalQuantity: number = 0;
+      let exerciseCompletedQuantity: number = 0;
+
+      workouts.forEach(async (workout) => {
+        if (workout.exercises) {
+          exerciseTotalQuantity += workout.exercises.length;
+          workout.exercises.forEach(async (exercise: ExerciseType) => {
+            const exerciseProgress = await getProgress(
+              user?.uid,
+              courseId,
+              workout._id,
+              exercise.name
+            );
+            if (exerciseProgress === exercise.quantity) {
+              exerciseCompletedQuantity = exerciseCompletedQuantity + 1;
+            }
+            const courseProgress = Math.ceil(
+              (exerciseCompletedQuantity * 100) / exerciseTotalQuantity
+            );
+            setWorkoutProgress(courseProgress);
+          });
+        } else {
+          exerciseTotalQuantity = exerciseTotalQuantity + 1;
+          const workoutProgress = await getWorkoutProgress(
+            user?.uid,
+            courseId,
+            workout._id
+          );
+          if (workoutProgress === 100) {
+            exerciseCompletedQuantity = exerciseCompletedQuantity + 1;
+          }
+          const courseProgress = Math.ceil(
+            (exerciseCompletedQuantity * 100) / exerciseTotalQuantity
+          );
+          setWorkoutProgress(courseProgress);
+        }
+      });
+    };
+
+    calculateProgress();
+  }, [courseId, user?.uid]);
 
   return (
     <div
@@ -61,18 +110,22 @@ function MyCard({ courseId }: { courseId: string }) {
           <p className="text-black">Сложность</p>
         </div>
         <div className="mt-4 mb-9">
-          <p className="text-gray-600">Прогресс 50%</p>
+          <p className="text-gray-600">Прогресс {workoutProgress}%</p>
           <progress
             className="h-1.5 w-[270px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
             max="100"
-            value="50"
+            value={workoutProgress}
           />
         </div>
         <button
           className="btn-primary w-full h-12 mb-5"
           onClick={handleWorkoutButton}
         >
-          Начать тренировки
+          {workoutProgress === 0
+            ? "Начать тренировки"
+            : workoutProgress > 0 && workoutProgress < 100
+            ? "Продолжить"
+            : "Начать заново"}
         </button>
       </div>
     </div>

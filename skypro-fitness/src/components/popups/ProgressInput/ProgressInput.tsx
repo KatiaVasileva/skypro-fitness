@@ -3,10 +3,9 @@ import { ExerciseType } from "../../../types/WorkoutType.type";
 type ProgressInputType = {
   exercise: ExerciseType;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: number;
 };
 
-function ProgressInput({ exercise, onChange, value }: ProgressInputType) {
+function ProgressInput({ exercise, onChange }: ProgressInputType) {
   return (
     <div>
       <p>{`Сколько раз вы сделали ${exercise.name.toLowerCase()}?`}</p>
@@ -17,7 +16,6 @@ function ProgressInput({ exercise, onChange, value }: ProgressInputType) {
         min="0"
         step="1"
         placeholder="0"
-        defaultValue={value}
       />
     </div>
   );

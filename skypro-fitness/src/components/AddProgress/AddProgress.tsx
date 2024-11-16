@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useWorkoutContext } from "../../hooks/useWorkoutContext";
 import { ExerciseType } from "../../types/WorkoutType.type";
 import ProgressInput from "../popups/ProgressInput/ProgressInput";
 import { useNavigate } from "react-router-dom";
-// import { useUserContext } from "../../../hooks/useUserContext";
-// import { useState } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
+import { addExerciseProgressToUser, addWorkoutProgressToUser } from "../../api/apiCourses";
 
 type AddProgressPropsType = {
   courseId: string | undefined;
@@ -13,19 +12,30 @@ type AddProgressPropsType = {
 
 function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
   const navigate = useNavigate();
-  const { workouts } = useWorkoutContext();
-  //   const { user } = useUserContext();
-  const workout = workouts.filter((workout) => workout._id === workoutId);
-  const [exercises, setExercises] = useState(workout[0].exercises);
+  const { exercises, setExercises } = useWorkoutContext();
+  const { user } = useUserContext();
 
   const handleCloseButton = () => {
     navigate("/workout/" + courseId + "/" + workoutId);
   };
 
   const handleSaveButton = () => {
-    // if (user && exercises) {
-    //   addWorkoutProgressToUser(user.uid, workout[0]._id, exercises);
-    // }
+    if (user && exercises) {
+      exercises.forEach((exercise) =>
+        addExerciseProgressToUser(
+          user.uid,
+          workoutId,
+          courseId,
+          exercise.name,
+          exercise.progressWorkout
+        )
+      );
+    }
+    if (user && exercises.length === 0) {
+      const progress = 100;
+      addWorkoutProgressToUser(user.uid, workoutId, courseId, progress);
+    }
+    navigate("/workout/" + courseId + "/" + workoutId);
   };
 
   return (
@@ -67,10 +77,10 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
               [&::-webkit-scrollbar-thumb]:bg-black
               [&::-webkit-scrollbar-thumb]:rounded-[10px]"
               >
-                {exercises?.map((exercise: ExerciseType) => (
+                {exercises?.map((exercise: ExerciseType, index: number) => (
                   <ProgressInput
                     exercise={exercise}
-                    value={exercise.progressWorkout}
+                    key={index}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setExercises(
                         exercises.map((item: ExerciseType) =>
@@ -91,7 +101,7 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
                   className="btn-primary w-[334px] md:w-full mt-10 pt-3 pb-3"
                   onClick={handleSaveButton}
                 >
-                  Сохранить
+                  {exercises.length > 0 ? "Сохранить" : "Выполнено"}
                 </button>
               </div>
             </div>

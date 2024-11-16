@@ -3,7 +3,6 @@ import Card from "../Card/Card";
 import { getCourses, getWorkouts } from "../../api/apiCourses";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
 import { saveCoursesToLocalStorage, saveWorkoutsToLocalStorage } from "../../lib/helpers";
-import { WorkoutType } from "../../types/WorkoutType.type";
 import { useWorkoutContext } from "../../hooks/useWorkoutContext";
 
 
@@ -11,13 +10,11 @@ function Main() {
   const { courses, setCourses } = useCoursesContext();
   const {setWorkouts} = useWorkoutContext();
 
-
   useEffect(() => {
     getCourses()
       .then((allCourses) => {
-        const courses = Object.values(allCourses);
-        saveCoursesToLocalStorage(courses);
-        setCourses(courses);
+        saveCoursesToLocalStorage(allCourses);
+        setCourses(allCourses);
       })
       .catch(() => {
         console.log("Не удалось загрузить данные, попробуйте позже.");
@@ -27,10 +24,8 @@ function Main() {
   useEffect(() => {
     getWorkouts()
       .then((allWorkouts) => {
-        const workouts: Array<WorkoutType> = Object.values(allWorkouts);
-        console.log(workouts);
-        saveWorkoutsToLocalStorage(workouts);
-        setWorkouts(workouts);
+        saveWorkoutsToLocalStorage(allWorkouts);
+        setWorkouts(allWorkouts);
       })
       .catch(() => {
         console.log("Не удалось загрузить данные, попробуйте позже.");

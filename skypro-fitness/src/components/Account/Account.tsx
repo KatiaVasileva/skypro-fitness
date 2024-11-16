@@ -20,8 +20,11 @@ export const Account = () => {
   };
 
   useEffect(() => {
-    getUserCourses(user!.uid).then((userCourses) => {
-      setUserCourses(userCourses);
+    getUserCourses(user!.uid).then((courses) => {
+      if (courses) {
+        const userCourses = Object.keys(courses);
+        setUserCourses(userCourses);
+      }
     });
   }, [user, userCourses]);
 

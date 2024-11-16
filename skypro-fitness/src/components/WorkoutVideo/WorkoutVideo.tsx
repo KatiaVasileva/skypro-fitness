@@ -3,6 +3,9 @@ import { useWorkoutContext } from "../../hooks/useWorkoutContext";
 // import { useUserContext } from "../../hooks/useUserContext";
 import { useCoursesContext } from "../../hooks/useCoursesContext";
 import Exercise from "../Exercise/Exercise";
+import { useUserContext } from "../../hooks/useUserContext";
+import { useEffect, useState } from "react";
+import { getWorkoutProgress } from "../../api/apiCourses";
 
 type WorkoutPropsType = {
   courseId: string | undefined;
@@ -12,23 +15,38 @@ type WorkoutPropsType = {
 function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
   const navigate = useNavigate();
   const { courses } = useCoursesContext();
-  const { workouts, exercises } = useWorkoutContext();
-  //   const { user } = useUserContext();
+  const { workouts, exercises, setExercises } = useWorkoutContext();
+  const { user } = useUserContext();
 
   const course = courses.filter((course) => course._id === courseId);
   const workout = workouts.filter((workout) => workout._id === workoutId);
+  const [workoutProgress, setWorkoutProgress] = useState(0);
 
-  //   useEffect(() => {
-  //     if (user && workoutId) {
-  //       getWorkoutProgressFromUser(user.uid, workoutId).then((data) => {
-  //         setExercises(data);
-  //     console.log(data);
-  //       });
-  //     }
-  //   }, [setExercises, user, workouts, workoutId]);
+  useEffect(() => {
+    if (workout) {
+      if (workout[0].exercises) {
+        setExercises(workout[0].exercises);
+      } else {
+        setExercises([]);
+      }
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   getUserCourses(user!.uid).then((courses) => {
+  //     console.log(courses);
+  //   });
+  // }, [user]);
+
+  useEffect(() => {
+    if(exercises.length === 0) {
+      getWorkoutProgress(user?.uid, courseId, workoutId).then((progress) => {
+        setWorkoutProgress(progress);
+      })
+    }
+  });
 
   const addProgress = () => {
-    console.log(exercises);
     navigate("/workout/" + courseId + "/" + workoutId + "/add")
   };
 
@@ -76,19 +94,25 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
           <div className="bg-white rounded-[30px] drop-shadow-lg px-7 py-7">
             <p className="text-start text-3xl pb-5">Упражнения тренировки</p>
 
+            {exercises.length === 0 && (
+              <progress
+              className="h-1.5 w-[280px] md:w-[320px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
+              max="100"
+              value={workoutProgress}
+            />
+            )}
+
             <div className="flex flex-col w-full md:flex-row gap-14">
               <div className="flex flex-col text-start text-lg">
                 <div className="pb-5">
-                  {workout[0].exercises
-                    ? workout[0].exercises.map((exercise, index) => (
-                        <Exercise
-                          exercise={exercise}
-                          order={index}
-                          // progress={workoutProgress}
-                          key={index}
-                        />
-                      ))
-                    : ""}
+                {exercises.map((exercise, index) => (
+                    <Exercise
+                      exercise={exercise}
+                      courseId={courseId}
+                      workoutId={workoutId}
+                      key={index}
+                    />
+                  ))}
                 </div>
               </div>
             </div>

@@ -18,7 +18,6 @@ const benefitList = [
 
 function Course({ courseId }: { courseId: string | undefined }) {
   const [color, setColor] = useState("bg-white");
-  //const [isMobile, setIsMobile] = useState(false);
   const { courses } = useCoursesContext();
   const { user } = useUserContext();
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
   useEffect(() => {
     if (user) {
       getUserCourses(user!.uid).then((data) => {
-        const userCourses: Array<string> = data;
+        const userCourses: Array<string> = Object.keys(data);
         setUserCourses(userCourses);
       });
     }
@@ -60,7 +59,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
       case "BodyFlex":
         setColor("bg-purple");
         break;
-      case "DanceFitness":
+      case "Zumba":
         setColor("bg-orange");
         break;
       case "Stretching":
@@ -71,16 +70,6 @@ function Course({ courseId }: { courseId: string | undefined }) {
     }
   }, [course]);
 
-  // useEffect(() => {
-  //   const updateMedia = () => {
-  //     setIsMobile(window.innerWidth <= 375);
-  //   };
-
-  //   updateMedia();
-  //   window.addEventListener("resize", updateMedia);
-  //   return () => window.removeEventListener("resize", updateMedia);
-  // }, []);
-
   return (
     <>
       <div className="container">
@@ -88,7 +77,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
           <div
             className={`relative h-[389px] ${color} rounded-3xl bg-cover bg-center p-4 md:h-80`}
           >
-            <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible">
+            <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible z-50 absolute">
               {course[0].nameRU}
             </h3>
 
