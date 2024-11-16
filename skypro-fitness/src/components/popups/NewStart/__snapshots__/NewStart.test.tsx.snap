@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewStart component renders correctly 1`] = `
+<div>
+  <div
+    class="w-full h-full overflow-x-hidden fixed z-10 bg-dark-gray/50 top-0 left-0"
+  >
+    <div
+      class="block w-screen min-h-screen mx-auto my-0"
+    >
+      <div
+        class="h-screen flex items-center"
+      >
+        <div
+          class="flex flex-col items-center gap-[30px] bg-white w-[360px] min-h-[350px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] mx-auto my-0 px-[40px] py-[40px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]"
+        >
+          <img
+            alt="logo_modal"
+            class="block w-[220px] h-[35px]"
+            src="/img/logo.png"
+          />
+          <div
+            class="h-[100px] w-[278px] text-center"
+          >
+            <p
+              class="text-2xl text-black font-medium mb-7"
+            >
+              Чтобы начать заново, добавьте курс на главной странице
+            </p>
+          </div>
+          <button
+            class="btn-primary h-[52px] w-[235px]"
+          >
+            На главную
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

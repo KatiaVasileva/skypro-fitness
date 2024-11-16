@@ -5,8 +5,8 @@ export type UserType = {
   email: string;
   password: string;
   username: string;
-  courses?: string[]; // Массив ID курсов
-  workouts?: WorkoutType[]; // Массив объектов типа WorkoutType
+  courses?: string[];
+  workouts?: WorkoutType[];
 };
 
 export type LoginType = {

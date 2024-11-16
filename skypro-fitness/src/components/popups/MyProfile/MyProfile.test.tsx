@@ -5,14 +5,15 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as router from "react-router";
-import UserProvider from "../../context/UserContext";
-import CoursesProvider from "../../context/CoursesContext";
-import Register from "./Register";
 import { BrowserRouter } from "react-router-dom";
+import UserProvider from "../../../context/UserContext";
+import CoursesProvider from "../../../context/CoursesContext";
+import WorkoutProvider from "../../../context/WorkoutContext";
+import { MyProfile } from "./MyProfile";
 
 const navigate = jest.fn();
 
-describe("Register component", () => {
+describe("MyProfile component", () => {
   beforeEach(() => {
     jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
   });
@@ -22,7 +23,11 @@ describe("Register component", () => {
       <BrowserRouter>
         <UserProvider>
           <CoursesProvider>
-            <Register courseId={undefined} />
+            <WorkoutProvider>
+              <MyProfile setIsOpen={function (): void {
+                            throw new Error("Function not implemented.");
+                        } } />
+            </WorkoutProvider>
           </CoursesProvider>
         </UserProvider>
       </BrowserRouter>

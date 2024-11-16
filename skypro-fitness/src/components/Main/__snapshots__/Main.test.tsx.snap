@@ -6,7 +6,7 @@ exports[`Main component renders correctly 1`] = `
     class="container"
   >
     <div
-      class="flex flex-row mt-2 md:mt-16 h-30 gap-4"
+      class="flex flex-row mt-10 md:mt-16 h-30 gap-4"
     >
       <div
         class="h-30 basis-full md:basis-3/4"

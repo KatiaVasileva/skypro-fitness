@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyProfile component renders correctly 1`] = `
+<div>
+  <div
+    class=""
+  >
+    <div
+      class="block overflow-x-hidden absolute z-50 top-[50px] md:top-[70px] left-[-190px] md:left-[-100px]"
+    >
+      <div
+        class="bg-white rounded-[30px] w-[266px] min-h-[258px] p-[30px] flex flex-col items-center shadow-md"
+      >
+        <div
+          class="mb-8 text-lg font-normal"
+        >
+          <h3
+            class="text-center"
+          />
+          <p
+            class="text-gray"
+          />
+        </div>
+        <button
+          class="btn-primary w-52 h-[52px] mb-[10px]"
+        >
+          Мой профиль
+        </button>
+        <button
+          class="btn-primary-white text-black w-52 h-[52px]"
+        >
+          Выйти
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

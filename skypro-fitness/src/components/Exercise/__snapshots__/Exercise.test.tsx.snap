@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise component renders correctly 1`] = `
+<div>
+  <div
+    class=""
+  >
+    <p
+      class="text-[16px] md:text-[18px]"
+    >
+       (0 повторений) NaN %
+       
+    </p>
+    <progress
+      class="h-1.5 w-[280px] md:w-[320px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
+      max="100"
+      value="NaN"
+    />
+  </div>
+</div>
+`;

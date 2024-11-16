@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header component renders correctly 1`] = `
+exports[`Register component renders correctly 1`] = `
 <div>
   <div
-    class="inset-0 flex items-center justify-center bg-[#eaeef6] absolute z-10 bg-dark-gray/50 top-0 left-0"
+    class="inset-0 flex items-center justify-center bg-[#eaeef6] fixed z-10 bg-gray/50 top-0 left-0"
   >
     <div
       class="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]"
