@@ -89,7 +89,7 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
   };
 
   return (
-    <div className="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0">
+    <div className="inset-0 flex items-center justify-center fixed z-50 bg-gray/50 top-0 left-0">
       <div className="relative flex z-auto inset-0 items-center justify-center">
         <button
           onClick={handlelCloseButton}

@@ -198,7 +198,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
               alt="greenline"
             />
             <img
-              className="absolute z-0 bottom-[-100px] left-[86px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
+              className="absolute z-0 bottom-[-100px] left-[46px] w-[313px] h-[348px] md:top-14 md:left-2 lg:h-[542px] lg:w-[487px] lg:-top-20 lg:left-28 md:z-10"
               src="/img/addcoursepic.png"
               alt="sportsman"
             />
