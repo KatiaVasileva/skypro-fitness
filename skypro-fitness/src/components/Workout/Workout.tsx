@@ -46,10 +46,10 @@ function Workout({
           if (exerciseProgress === exercise.quantity) {
             exerciseCompletedQuantity = exerciseCompletedQuantity + 1;
           }
-          const courseProgress = Math.ceil(
+          const progress = Math.ceil(
             (exerciseCompletedQuantity * 100) / exerciseTotalQuantity
           );
-          setWorkoutProgress(courseProgress);
+          setWorkoutProgress(progress);
         });
       } else {
         exerciseTotalQuantity = exerciseTotalQuantity + 1;
@@ -61,10 +61,10 @@ function Workout({
         if (workoutProgress === 100) {
           exerciseCompletedQuantity = exerciseCompletedQuantity + 1;
         }
-        const courseProgress = Math.ceil(
+        const progress = Math.ceil(
           (exerciseCompletedQuantity * 100) / exerciseTotalQuantity
         );
-        setWorkoutProgress(courseProgress);
+        setWorkoutProgress(progress);
       }
     };
 
@@ -81,12 +81,12 @@ function Workout({
       >
         <div>
           <div className="flex flex-row gap-4">
-            {workoutProgress === 100 && (
+            {workoutProgress === 100 ? (
               <img src="/img/Check-in-Circle.png" className="h-8" />
-            )}
-            {workoutProgress < 100 && (
+            ) : (<img src="/img/check-in-circle-empty.png" className="h-8" />)}
+            {/* {workoutProgress < 100 && (
               <img src="/img/check-in-circle-empty.png" className="h-8" />
-            )}
+            )} */}
             <div className="flex flex-col align-center text-wrap">
               <p className="text-base md:text-[22px] font-normal leading-[1.65rem] h-7">
                 {workout[0].name}

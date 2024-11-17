@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { CourseType } from "../../types/CourseType.type";
 import { useUserContext } from "../../hooks/useUserContext";
-import { deleteCourseFromUser, getCourseWorkouts, getProgress, getWorkoutProgress } from "../../api/apiCourses";
+import {
+  deleteCourseFromUser,
+  deleteWorkoutsFromUser,
+  getCourseWorkouts,
+  getProgress,
+  getWorkoutProgress,
+} from "../../api/apiCourses";
 import { useEffect, useState } from "react";
 import { ExerciseType, WorkoutType } from "../../types/WorkoutType.type";
 import { AppRoutes } from "../../lib/appRoutes";
@@ -17,17 +23,16 @@ function MyCard({ course }: { course: CourseType }) {
     navigate("/course/" + course?.order);
   };
 
-  const handleWorkoutButton = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleWorkoutButton = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.stopPropagation();
     event.preventDefault();
     setIsNewStart(false);
     if (workoutProgress === 100) {
-      await deleteCourseFromUser(user!.uid, course._id);
-      setIsNewStart(true);
+      await deleteWorkoutsFromUser(user!.uid, course._id);
     }
-    if (workoutProgress < 100) {
-      navigate("/account/selectworkout/" + course._id);
-    }
+    navigate("/account/selectworkout/" + course._id);
   };
 
   const handleDeleteCourseButton = (event: React.MouseEvent<HTMLElement>) => {
@@ -100,11 +105,11 @@ function MyCard({ course }: { course: CourseType }) {
           </h3>
           <div className="flex flex-row flex-wrap gap-1 mb-2">
             <div className="flex flex-row flex-wrap gap-1 w-[103px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-              <img className="h-4 w-4" src="./img/calendar.png"></img>
+              <img className="h-4 w-4" src={`/img/calendar_${course.difficulty}.png`}></img>
               <p className="text-black text-[16px]">{course.time}</p>
             </div>
             <div className="flex flex-row gap-1 w-[160px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-              <img className="h-4 w-4" src="./img/time.png"></img>
+              <img className="h-4 w-4" src={`/img/time_${course.difficulty}.png`}></img>
               <p className="text-black">{course.duration}</p>
             </div>
           </div>

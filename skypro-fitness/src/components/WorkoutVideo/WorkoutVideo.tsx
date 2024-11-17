@@ -29,6 +29,7 @@ function WorkoutVideo({ courseId, workoutId }: WorkoutPropsType) {
         setExercises([]);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -96,6 +96,33 @@ export const deleteCourseFromUser = async (uid: string, courseId: string) => {
   }
 };
 
+export const deleteWorkoutsFromUser = async (uid: string, courseId: string) => {
+  try {
+    const courseRef = ref(db, `users/${uid}/courses/${courseId}`);
+
+    const snapshot = await get(courseRef);
+
+    if (snapshot.exists()) {
+      const courseData = snapshot.val();
+
+      if (courseData.workouts) {
+        const updates: {
+          [key: string]: string;
+        } = {};
+        updates[`users/${uid}/courses/${courseId}`] = courseId;
+        return update(ref(db), updates);
+      } else {
+        throw new Error("Курс не найден у пользователя");
+      }
+    } else {
+      throw new Error("Пользователь не найден");
+    }
+  } catch (error) {
+    console.error("Ошибка при удалении курса:", error);
+    throw error;
+  }
+};
+
 export const getWorkouts = async () => {
   let workouts: WorkoutType[] = [];
   try {
