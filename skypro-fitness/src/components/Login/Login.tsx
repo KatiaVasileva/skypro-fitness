@@ -5,10 +5,10 @@ import { AppRoutes } from "../../lib/appRoutes";
 import { loginUser } from "../../api/apiUser";
 import { useUserContext } from "../../hooks/useUserContext";
 
-export const Login = ({courseId}: {courseId :string | undefined}) => {
+export const Login = ({ courseId }: { courseId: string | undefined }) => {
   const { setUser } = useUserContext();
   const navigate = useNavigate();
-  
+
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -20,7 +20,7 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    
+
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
@@ -59,7 +59,7 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
     } catch (error: unknown) {
       console.error(error);
       setPasswordError(
-        "Пароль введен неверно, попробуйте еще раз. Восстановить пароль?"
+        "Пароль и/или логин введен неверно, попробуйте еще раз. Восстановить пароль?"
       );
     }
   };
@@ -67,17 +67,31 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
   const handleRegisterButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    
+
     if (courseId) {
       navigate("/course/" + courseId + "/register");
     } else {
       navigate(AppRoutes.REGISTER);
     }
-  }
+  };
+
+  const handlelCloseButton = () => {
+    if (courseId) {
+      navigate("/course/" + courseId);
+    } else {
+      navigate(AppRoutes.MAIN);
+    }
+  };
 
   return (
-    <div className="block w-full h-full overflow-x-hidden fixed z-50 bg-gray/50 top-0 left-0" >
-      <div className="flex fixed z-auto inset-0 items-center justify-center">
+    <div className="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0">
+      <div className="relative flex z-auto inset-0 items-center justify-center">
+        <button
+          onClick={handlelCloseButton}
+          className="absolute top-4 right-6 text-gray hover:text-dark-gray text-3xl transition-colors duration-200"
+        >
+          ×
+        </button>
         <div className="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto">
           <img
             className="w-[220px] h-[35px] mx-auto"
@@ -86,7 +100,7 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
           />
           <form
             onSubmit={onLogin}
-            className="w-full flex flex-col items-center gap-[10px]"
+            className="w-full flex flex-col items-center gap-[10px] text-lg"
           >
             <div className="flex flex-col w-full mb-4 items-center gap-[10px]">
               <input
@@ -96,8 +110,8 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
                 value={formValues.email}
                 onChange={onInputChange}
                 className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
-                  loginError ? "border-red-500" : "border-[#D0CECE]"
-                } text-[#D0CECE]`}
+                  loginError ? "border-red-500" : "border-white-gray"
+                } placeholder:text-white-gray focus:outline-none`}
               />
               {loginError && (
                 <p className="text-red-500 text-sm">{loginError}</p>
@@ -110,8 +124,8 @@ export const Login = ({courseId}: {courseId :string | undefined}) => {
                 value={formValues.password}
                 onChange={onInputChange}
                 className={`w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] ${
-                  passwordError ? "border-red-500" : "border-[#D0CECE]"
-                } text-[#D0CECE]`}
+                  passwordError ? "border-red-500" : "border-white-gray"
+                } placeholder:text-white-gray focus:outline-none`}
               />
             </div>
             {passwordError && (

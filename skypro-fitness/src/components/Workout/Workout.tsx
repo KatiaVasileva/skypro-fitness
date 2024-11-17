@@ -83,10 +83,9 @@ function Workout({
           <div className="flex flex-row gap-4">
             {workoutProgress === 100 ? (
               <img src="/img/Check-in-Circle.png" className="h-8" />
-            ) : (<img src="/img/check-in-circle-empty.png" className="h-8" />)}
-            {/* {workoutProgress < 100 && (
+            ) : (
               <img src="/img/check-in-circle-empty.png" className="h-8" />
-            )} */}
+            )}
             <div className="flex flex-col align-center text-wrap">
               <p className="text-base md:text-[22px] font-normal leading-[1.65rem] h-7">
                 {workout[0].name}

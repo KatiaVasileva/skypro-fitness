@@ -79,20 +79,34 @@ export default function Register({
     }
   };
 
+  const handlelCloseButton = () => {
+    if (courseId) {
+      navigate("/course/" + courseId);
+    } else {
+      navigate(AppRoutes.MAIN);
+    }
+  };
+
   return (
-    <div className="inset-0 flex items-center justify-center bg-[#eaeef6] fixed z-10 bg-gray/50 top-0 left-0">
-      <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]">
+    <div className="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0">
+      <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-white-gray">
+      <button
+          onClick={handlelCloseButton}
+          className="absolute top-4 right-6 text-gray hover:text-dark-gray text-3xl transition-colors duration-200"
+        >
+          × 
+        </button>
         <div className="flex justify-center mb-4">
           <img src="/img/logo.png" alt="logo_modal" />
         </div>
 
         <form
-          className="flex flex-col items-center pt-[32px]"
+          className="flex flex-col items-center pt-[32px]  placeholder:text-white-gray"
           onSubmit={onRegister}
         >
           <div className="gap-2.5">
             <input
-              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
               type="text"
               value={formValues.username}
               placeholder="Имя пользователя"
@@ -101,7 +115,7 @@ export default function Register({
             />
 
             <input
-              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
               type="email"
               value={formValues.email}
               placeholder="Эл.почта"
@@ -110,7 +124,7 @@ export default function Register({
             />
 
             <input
-              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
               type="password"
               value={formValues.password}
               placeholder="Пароль"
@@ -119,7 +133,7 @@ export default function Register({
             />
 
             <input
-              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+              className="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
               type="password"
               value={formValues.confirmPassword}
               placeholder="Повторите пароль"
