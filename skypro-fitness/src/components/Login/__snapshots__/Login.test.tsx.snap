@@ -3,11 +3,16 @@
 exports[`Login component renders correctly 1`] = `
 <div>
   <div
-    class="block w-full h-full overflow-x-hidden fixed z-50 bg-gray/50 top-0 left-0"
+    class="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0"
   >
     <div
-      class="flex fixed z-auto inset-0 items-center justify-center"
+      class="relative flex z-auto inset-0 items-center justify-center"
     >
+      <button
+        class="absolute top-4 right-6 text-gray hover:text-dark-gray text-3xl transition-colors duration-200"
+      >
+        ×
+      </button>
       <div
         class="flex bg-white rounded-[30px] w-[360px] min-h-[425px] p-[40px] flex-col items-center gap-[48px] mx-auto"
       >
@@ -17,26 +22,29 @@ exports[`Login component renders correctly 1`] = `
           src="/img/logo.png"
         />
         <form
-          class="w-full flex flex-col items-center gap-[10px]"
+          class="w-full flex flex-col items-center gap-[10px] text-lg"
         >
           <div
-            class="flex flex-col w-full mb-4 items-center gap-[10px]"
+            class="flex flex-col w-full items-center gap-[10px]"
           >
             <input
-              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-white-gray placeholder:text-white-gray focus:outline-none"
               name="email"
               placeholder="Электронная почта"
               type="email"
               value=""
             />
             <input
-              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-[#D0CECE] text-[#D0CECE]"
+              class="w-[280px] h-[52px] text-black bg-white border rounded-[8px] p-[16px_18px] border-white-gray placeholder:text-white-gray focus:outline-none"
               name="password"
               placeholder="Пароль"
               type="password"
               value=""
             />
           </div>
+          <div
+            class="h-5 text-center"
+          />
           <div
             class="mt-[24px] flex flex-col w-full items-center gap-[10px]"
           >

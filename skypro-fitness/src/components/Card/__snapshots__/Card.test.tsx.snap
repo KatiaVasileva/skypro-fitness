@@ -29,7 +29,7 @@ exports[`Card component renders correctly 1`] = `
           <img
             alt="Продолжительность курса"
             class="h-4 w-4"
-            src="./img/calendar.png"
+            src="./img/calendar_3.png"
           />
           <p
             class="text-black"
@@ -41,7 +41,7 @@ exports[`Card component renders correctly 1`] = `
           <img
             alt="Время курса"
             class="h-4 w-4"
-            src="./img/time.png"
+            src="./img/time_3.png"
           />
           <p
             class="text-black"

@@ -3,11 +3,16 @@
 exports[`Register component renders correctly 1`] = `
 <div>
   <div
-    class="inset-0 flex items-center justify-center bg-[#eaeef6] fixed z-10 bg-gray/50 top-0 left-0"
+    class="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0"
   >
     <div
-      class="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-[#d4dbe5]"
+      class="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-white-gray"
     >
+      <button
+        class="absolute top-4 right-6 text-gray hover:text-dark-gray text-3xl transition-colors duration-200"
+      >
+        ×
+      </button>
       <div
         class="flex justify-center mb-4"
       >
@@ -17,40 +22,43 @@ exports[`Register component renders correctly 1`] = `
         />
       </div>
       <form
-        class="flex flex-col items-center pt-[32px]"
+        class="flex flex-col items-center pt-[32px]  placeholder:text-white-gray"
       >
         <div
           class="gap-2.5"
         >
           <input
-            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
             name="username"
             placeholder="Имя пользователя"
             type="text"
             value=""
           />
           <input
-            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
             name="email"
             placeholder="Эл.почта"
             type="email"
             value=""
           />
           <input
-            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
             name="password"
             placeholder="Пароль"
             type="password"
             value=""
           />
           <input
-            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none"
+            class="h-[52px] w-[280px] text-black bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] placeholder:font-normal placeholder:text-lg placeholder:text-white-gray focus:outline-none"
             name="confirmPassword"
             placeholder="Повторите пароль"
             type="password"
             value=""
           />
         </div>
+        <div
+          class="h-7 mt-2 text-center text-sm"
+        />
         <button
           class="w-[280px] h-[52px] bg-[#BCEC30] text-[18px] font-normal text-black mt-8 mb-2.5 rounded-[46px] hover:bg-[#C6FF00] active:bg-[#000000] active:text-white"
           type="submit"
