@@ -27,7 +27,7 @@ exports[`MyCard component renders correctly 1`] = `
         >
           <img
             class="h-4 w-4"
-            src="./img/calendar.png"
+            src="/img/calendar_0.png"
           />
           <p
             class="text-black text-[16px]"
@@ -38,7 +38,7 @@ exports[`MyCard component renders correctly 1`] = `
         >
           <img
             class="h-4 w-4"
-            src="./img/time.png"
+            src="/img/time_0.png"
           />
           <p
             class="text-black"
