@@ -31,8 +31,13 @@ export default function Register({
   const onRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!formValues.email || formValues.email.trim().length === 0) {
+    if (!formValues.username || formValues.username.trim().length === 0) {
       setError("Не введено имя пользователя");
+      return;
+    }
+
+    if (!formValues.email || formValues.email.trim().length === 0) {
+      setError("Не введена почта");
       return;
     }
 
@@ -90,11 +95,11 @@ export default function Register({
   return (
     <div className="inset-0 flex items-center justify-center fixed z-10 bg-gray/50 top-0 left-0">
       <div className="relative w-[360px] bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] px-[60px] pt-[50px] pb-[35px] rounded-[30px] border-[0.7px] border-solid border-white-gray">
-      <button
+        <button
           onClick={handlelCloseButton}
           className="absolute top-4 right-6 text-gray hover:text-dark-gray text-3xl transition-colors duration-200"
         >
-          × 
+          ×
         </button>
         <div className="flex justify-center mb-4">
           <img src="/img/logo.png" alt="logo_modal" />
@@ -142,7 +147,9 @@ export default function Register({
             />
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
+          <div className="h-7 mt-2 text-center text-sm">
+            {error && <p className="text-red-500">{error}</p>}
+          </div>
 
           <button
             className="w-[280px] h-[52px] bg-[#BCEC30] text-[18px] font-normal text-black mt-8 mb-2.5 rounded-[46px] hover:bg-[#C6FF00] active:bg-[#000000] active:text-white"

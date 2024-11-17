@@ -102,12 +102,12 @@ const Reset = () => {
             />
             <div className="h-[60px] w-[280px] gap-[10px] text-center">
               {message && (
-                <span className="text-lg font-normal leading-[19.8px] font-roboto block text-black">
+                <span className="text-sm font-normal leading-[19.8px] font-roboto block text-black">
                   {message}
                 </span>
               )}
               {error && (
-                <span className="text-lg font-normal leading-[19.8px] font-roboto block text-red-500">
+                <span className="text-sm font-normal leading-[19.8px] font-roboto block text-red-500">
                   {error}
                 </span>
               )}

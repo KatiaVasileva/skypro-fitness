@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { AppRoutes } from "../../lib/appRoutes";
 import { loginUser } from "../../api/apiUser";
@@ -28,22 +28,25 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
   const onLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const passwordLength = 6;
+
     setLoginError(null);
     setPasswordError(null);
 
-    let hasError = false;
-
     if (!formValues.email) {
       setLoginError("Введите логин");
-      hasError = true;
+      return;
     }
 
     if (!formValues.password) {
       setPasswordError("Введите пароль");
-      hasError = true;
+      return;
     }
 
-    if (hasError) return;
+    if (formValues.password.length < passwordLength) {
+      setPasswordError("Пароль должен содержать не менее 6 символов");
+      return;
+    }
 
     try {
       const user = await loginUser({
@@ -57,10 +60,12 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
         navigate(AppRoutes.MAIN);
       }
     } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(loginError);
+        console.error(passwordError);
+      }
       console.error(error);
-      setPasswordError(
-        "Пароль и/или логин введен неверно, попробуйте еще раз. Восстановить пароль?"
-      );
+      setPasswordError("Пароль и/или логин введены неверно, попробуйте еще раз");
     }
   };
 
@@ -102,7 +107,7 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
             onSubmit={onLogin}
             className="w-full flex flex-col items-center gap-[10px] text-lg"
           >
-            <div className="flex flex-col w-full mb-4 items-center gap-[10px]">
+            <div className="flex flex-col w-full items-center gap-[10px]">
               <input
                 type="email"
                 placeholder="Электронная почта"
@@ -113,9 +118,6 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
                   loginError ? "border-red-500" : "border-white-gray"
                 } placeholder:text-white-gray focus:outline-none`}
               />
-              {loginError && (
-                <p className="text-red-500 text-sm">{loginError}</p>
-              )}
 
               <input
                 type="password"
@@ -128,20 +130,14 @@ export const Login = ({ courseId }: { courseId: string | undefined }) => {
                 } placeholder:text-white-gray focus:outline-none`}
               />
             </div>
-            {passwordError && (
-              <>
-                <p className="text-red-500 text-sm">
-                  Пароль введен неверно, попробуйте еще раз.{" "}
-                  <Link
-                    to={AppRoutes.RESET}
-                    state={{ email: formValues.email }}
-                    className="underline text-red-500 hover:text-red-700"
-                  >
-                    Восстановить пароль?
-                  </Link>
-                </p>
-              </>
+            <div className="h-5 text-center">
+            {(passwordError || loginError) && (
+              <p className="text-red-500 text-sm">
+                {loginError}
+                {passwordError}
+              </p>
             )}
+            </div>
             <div className="mt-[24px] flex flex-col w-full items-center gap-[10px]">
               <button className="btn-primary w-full h-[52px] rounded-[46px]">
                 Войти

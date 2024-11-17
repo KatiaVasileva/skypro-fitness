@@ -62,8 +62,12 @@ export async function loginUser(credentials: LoginCredentials) {
     const user = userCredentials.user
   return user;
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
+    if (
+      error instanceof Error 
+    ) {
+      throw new Error('Введены неверные данные');
+    } else {
+      throw new Error('Произошла ошибка при авторизации. Попробуйте снова.');
     }
   }
 }

@@ -92,7 +92,7 @@ function Card({ course }: { course: CourseType }) {
             <div className="flex flex-row flex-wrap gap-1 w-[103px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
               <img
                 className="h-4 w-4"
-                src="./img/calendar.png"
+                src="./img/calendar_3.png"
                 alt="Продолжительность курса"
               ></img>
               <p className="text-black">{course.time}</p>
@@ -100,7 +100,7 @@ function Card({ course }: { course: CourseType }) {
             <div className="flex flex-row gap-1 w-[160px] h-9 bg-light-gray rounded-3xl items-center pl-2.5">
               <img
                 className="h-4 w-4"
-                src="./img/time.png"
+                src="./img/time_3.png"
                 alt="Время курса"
               ></img>
               <p className="text-black">{course.duration}</p>
