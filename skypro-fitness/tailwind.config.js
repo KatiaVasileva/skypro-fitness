@@ -20,7 +20,7 @@ export default {
         "gray": "#999999",
         "black": "#000000",
         "white": "#FFFFFF",
-        "inputBorder": "#D0CECE",
+        "white-gray": "#D0CECE",
         "yellow": "#FFC700",
         "salmon": "#FF7E65",
         "purple": "#7D458C",
