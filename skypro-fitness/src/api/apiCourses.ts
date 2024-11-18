@@ -81,6 +81,7 @@ export const deleteCourseFromUser = async (uid: string, courseId: string) => {
 
       if (userData.courses) {
         const updatedCourses = { ...userData.courses };
+
         delete updatedCourses[courseId];
 
         await update(userRef, { courses: updatedCourses });

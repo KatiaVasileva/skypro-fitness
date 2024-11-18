@@ -31,22 +31,24 @@ export const Account = () => {
   });
 
   useEffect(() => {
-    if (user && currentUser?.courses) {
+    if (user) {
       getCourses()
         .then((allCourses) => {
-          if (currentUser.courses) {
+          if (currentUser?.courses) {
             const courseIds = Object.keys(currentUser.courses);
             const courses = allCourses.filter((course) =>
               courseIds.includes(course._id.toString())
             );
             setUserCourses(courses);
+          } else {
+            setUserCourses([]);
           }
         })
         .catch(() => {
           console.log('Не удалось загрузить данные, попробуйте позже.');
         });
     }
-  }, [currentUser?.courses, user]);  
+  }, [currentUser?.courses, userCourses, user]);  
 
   return (
     <div className="container">

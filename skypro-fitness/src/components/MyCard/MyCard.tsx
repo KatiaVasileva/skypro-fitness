@@ -35,7 +35,7 @@ function MyCard({ course }: { course: CourseType }) {
     navigate("/account/selectworkout/" + course._id);
   };
 
-  const handleDeleteCourseButton = (event: React.MouseEvent<HTMLElement>) => {
+  const handleDeleteCourseButton = async (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     event.preventDefault();
     deleteCourseFromUser(user!.uid, course._id);
