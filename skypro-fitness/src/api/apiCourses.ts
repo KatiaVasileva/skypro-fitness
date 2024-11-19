@@ -81,6 +81,7 @@ export const deleteCourseFromUser = async (uid: string, courseId: string) => {
 
       if (userData.courses) {
         const updatedCourses = { ...userData.courses };
+
         delete updatedCourses[courseId];
 
         await update(userRef, { courses: updatedCourses });
@@ -187,8 +188,10 @@ export const addExerciseProgressToUser = async (
           workoutProgress,
       });
     } else {
-      console.log("Прогресс не введен");
-      return;
+      await update(docRef, {
+        [`courses/${courseId}/workouts/${workoutId}/exercises/${exerciseId}`]:
+          exerciseId,
+      });
     }
   } catch (error) {
     console.error("Ошибка загрузки прогресса упражнения: ", error);

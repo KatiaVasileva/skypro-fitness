@@ -30,7 +30,10 @@ function Course({ courseId }: { courseId: string | undefined }) {
   useEffect(() => {
     if (user) {
       getUserCourses(user!.uid).then((data) => {
-        const userCourses: Array<string> = Object.keys(data);
+        let userCourses: Array<string> = [];
+        if (data) {
+          userCourses = Object.keys(data);
+        }
         setUserCourses(userCourses);
       });
     }
