@@ -60,39 +60,49 @@ export const getWorkouts = async () => {
   return workouts;
 };
 
-// export const addWorkoutProgressToUser = async (
-//   uid: string,
-//   workoutId: string,
-//   // workoutProgress: Array<number>
-//   exercises: Array<ExerciseType>
-// ) => {
-//   const db = getFirestore();
+export const addWorkoutProgressToUser = async (
+  uid: string,
+  workoutId: string | undefined,
+  courseId: string | undefined,
+  progress: number
+) => {
+  try {
+    const db = getFirestore();
+    const workoutDocRef = doc(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}`);
+    await updateDoc(workoutDocRef, { progress });
 
-//   const progress = {
-//     workout_id: workoutId,
-//     exercises: exercises,
-//   };
+    console.log(`Прогресс тренировки ${workoutId} обновлён.`);
+  } catch (error) {
+    console.error("Ошибка обновления прогресса тренировки:", error);
+  }
+};
 
-//   const docRef = doc(db, "dataUsers", uid);
-//   const docSnap = await getDoc(docRef);
+export const addExerciseProgressToUser = async (
+  uid: string,
+  workoutId: string | undefined,
+  courseId: string | undefined,
+  exerciseName: string,
+  progress: number
+): Promise<void> => {
+  try {
+    if (!uid || !workoutId || !courseId) {
+      throw new Error("Недостаточно данных для обновления прогресса.");
+    }
 
-//   if (docSnap.exists()) {
-//     const workouts = docSnap.data().workouts;
-//     console.log(workouts);
-//     const workout = workouts.filter(
-//       (workout: { workout_id: string; exercises: Array<ExerciseType> }) =>
-//         workout.workout_id === workoutId
-//     );
-//     if(workout.length === 0) {
-//       await updateDoc(docRef, { workouts: arrayUnion(progress) });
-//     } else {
-//       await updateDoc(docRef, {workouts: [workouts.exercises]});
-//     }
-//   } else {
-//     console.log("No document");
-//   }
-// };
+    const db = getFirestore();
+    const exerciseDocRef = doc(db, `users/${uid}/courses/${courseId}/workouts/${workoutId}/exercises/${exerciseName}`
+    );
 
+    await updateDoc(exerciseDocRef, {
+      progress: progress,
+    });
+
+    console.log(`Прогресс упражнения "${exerciseName}" обновлён.`);
+  } catch (error) {
+    console.error("Ошибка при обновлении прогресса упражнения:", error);
+    throw error;
+  }
+};
 // export const getWorkoutProgressFromUser = async (
 //   uid: string,
 //   workoutId: string

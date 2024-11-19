@@ -2,19 +2,25 @@ import { useState } from "react";
 import { useWorkoutContext } from "../../../hooks/useWorkoutContext";
 import { ExerciseType } from "../../../types/WorkoutType.type";
 import ProgressInput from "../ProgressInput/ProgressInput";
+import { addExerciseProgressToUser, addWorkoutProgressToUser } from "../../../api/apiCourses";
+import { useNavigate } from "react-router-dom";
 // import { useUserContext } from "../../../hooks/useUserContext";
 // import { useState } from "react";
 
 type AddProgressPropsType = {
-  // courseId: string | undefined;
+  user: { uid: string }; 
+  courseId: string | undefined;
   workoutId: string | undefined;
   setIsAddProgressOpen: (isAddProgressOpen: boolean) => void;
 };
 
 function AddProgress({
   workoutId,
+  user,
+  courseId,
   setIsAddProgressOpen,
 }: AddProgressPropsType) {
+  const navigate = useNavigate();
   const { workouts } = useWorkoutContext();
 //   const { user } = useUserContext();
   const workout = workouts.filter((workout) => workout._id === workoutId);
@@ -24,12 +30,31 @@ function AddProgress({
     setIsAddProgressOpen(false);
   };
 
-  const handleSaveButton = () => {
-    // if (user && exercises) {
-    //   addWorkoutProgressToUser(user.uid, workout[0]._id, exercises);
-    // }
-    setIsAddProgressOpen(false);
+  const handleSaveButton = async () => {
+    let allExercisesCompleted = true;
+  
+    if (user && exercises) {
+      for (const exercise of exercises) {
+        await addExerciseProgressToUser(
+          user.uid,
+          workoutId,
+          courseId,
+          exercise.name,
+          exercise.progressWorkout
+        );
+  
+        if (exercise.progressWorkout < exercise.quantity) {
+          allExercisesCompleted = false;
+        }
+      }
+    }
+  
+    if (allExercisesCompleted) {
+      await addWorkoutProgressToUser(user.uid, workoutId, courseId, 100);
+      navigate(`/workout/${courseId}/${workoutId}/counted`);
+    }
   };
+  
 
   return (
     <div className="">
