@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react";
 import { ExerciseType } from "../../../types/WorkoutType.type";
+import { getProgress } from "../../../api/apiCourses";
+import { useUserContext } from "../../../hooks/useUserContext";
 
 type ProgressInputType = {
   exercise: ExerciseType;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  courseId: string | undefined;
+  workoutId: string | undefined;
 };
 
-function ProgressInput({ exercise, onChange }: ProgressInputType) {
+function ProgressInput({ exercise, onChange, courseId, workoutId }: ProgressInputType) {
+  const {user} = useUserContext();
+  const [progress, setProgress] = useState();
+
+  useEffect(() => {
+    getProgress(user?.uid, courseId, workoutId, exercise.name).then((progress) => {
+      setProgress(progress);
+    }); 
+  });
+
   return (
     <div>
       <p>{`Сколько раз вы сделали ${exercise.name.toLowerCase()}?`}</p>
@@ -16,6 +30,7 @@ function ProgressInput({ exercise, onChange }: ProgressInputType) {
         min="0"
         step="1"
         placeholder="0"
+        defaultValue={progress}
       />
     </div>
   );

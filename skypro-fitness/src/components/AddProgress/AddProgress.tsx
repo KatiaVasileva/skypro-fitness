@@ -3,7 +3,10 @@ import { ExerciseType } from "../../types/WorkoutType.type";
 import ProgressInput from "../popups/ProgressInput/ProgressInput";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/useUserContext";
-import { addExerciseProgressToUser, addWorkoutProgressToUser } from "../../api/apiCourses";
+import {
+  addExerciseProgressToUser,
+  addWorkoutProgressToUser,
+} from "../../api/apiCourses";
 
 type AddProgressPropsType = {
   courseId: string | undefined;
@@ -21,21 +24,30 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
 
   const handleSaveButton = () => {
     if (user && exercises) {
-      exercises.forEach((exercise) =>
+      let exercisesCompleted: number = 0;
+      exercises.forEach((exercise) => {
         addExerciseProgressToUser(
           user.uid,
           workoutId,
           courseId,
           exercise.name,
           exercise.progressWorkout
-        )
-      );
+        );
+        if (exercise.progressWorkout >= exercise.quantity) {
+          exercisesCompleted += 1;
+        }
+      });
+      if (exercisesCompleted === exercises.length) {
+        navigate("/workout/" + courseId + "/" + workoutId + "/counted");
+      } else {
+        navigate("/workout/" + courseId + "/" + workoutId);
+      }
     }
     if (user && exercises.length === 0) {
       const progress = 100;
       addWorkoutProgressToUser(user.uid, workoutId, courseId, progress);
+      navigate("/workout/" + courseId + "/" + workoutId + "/counted");
     }
-    navigate("/workout/" + courseId + "/" + workoutId + "/counted");
   };
 
   return (
@@ -81,6 +93,8 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
                   <ProgressInput
                     exercise={exercise}
                     key={index}
+                    courseId={courseId}
+                    workoutId={workoutId}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setExercises(
                         exercises.map((item: ExerciseType) =>

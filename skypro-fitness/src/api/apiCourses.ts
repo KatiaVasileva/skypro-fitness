@@ -188,8 +188,10 @@ export const addExerciseProgressToUser = async (
           workoutProgress,
       });
     } else {
-      console.log("Прогресс не введен");
-      return;
+      await update(docRef, {
+        [`courses/${courseId}/workouts/${workoutId}/exercises/${exerciseId}`]:
+          exerciseId,
+      });
     }
   } catch (error) {
     console.error("Ошибка загрузки прогресса упражнения: ", error);
