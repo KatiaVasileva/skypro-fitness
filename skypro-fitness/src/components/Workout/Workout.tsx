@@ -71,8 +71,6 @@ function Workout({
     calculateWorkoutProgress();
   }, [courseId, user?.uid, workoutId]);
 
-  console.log(workoutId + ": " + workoutProgress);
-
   return (
     <>
       <li

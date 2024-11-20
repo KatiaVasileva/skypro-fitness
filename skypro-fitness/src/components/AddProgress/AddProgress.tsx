@@ -26,7 +26,6 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
     let allExercicesCompleted = true;
 
     if (user && exercises) {
-
       for (const exercise of exercises) {
         await addExerciseProgressToUser(
           user.uid,
@@ -40,11 +39,13 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
           allExercicesCompleted = false;
         }
       }
-    };
+    }
 
     if (allExercicesCompleted) {
-        await addWorkoutProgressToUser(user?.uid, workoutId, courseId, 100);
-        navigate("/workout/" + courseId + "/" + workoutId + "/counted");
+      await addWorkoutProgressToUser(user?.uid, workoutId, courseId, 100);
+      navigate("/workout/" + courseId + "/" + workoutId + "/counted");
+    } else {
+      navigate("/workout/" + courseId + "/" + workoutId);
     }
   };
 
@@ -93,7 +94,7 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
                     key={index}
                     courseId={courseId}
                     workoutId={workoutId}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setExercises(
                         exercises.map((item: ExerciseType) =>
                           item.name === exercise.name
@@ -101,10 +102,15 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
                                 ...item,
                                 progressWorkout: Number(e.target.value),
                               }
+                            : !item.progressWorkout
+                            ? {
+                                ...item,
+                                progressWorkout: 0,
+                              }
                             : item
                         )
-                      )
-                    }
+                      );
+                    }}
                   />
                 ))}
               </div>
