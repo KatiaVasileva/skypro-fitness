@@ -11,7 +11,7 @@ export const Account = () => {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
   const [userCourses, setUserCourses] = useState<Array<CourseType>>([]);
-  const [currentUser, setCurrentUSer] = useState<UserType>();
+  const [currentUser, setCurrentUser] = useState<UserType>();
 
   const handleResetPassword = async () => {
     navigate(AppRoutes.RESET);
@@ -25,8 +25,8 @@ export const Account = () => {
   useEffect(() => {
     if (user) {
       getUser(user?.uid).then((user) => {
-        setCurrentUSer(user);
-      })
+        setCurrentUser(user);
+      });
     }
   });
 
@@ -45,10 +45,10 @@ export const Account = () => {
           }
         })
         .catch(() => {
-          console.log('Не удалось загрузить данные, попробуйте позже.');
+          console.log("Не удалось загрузить данные, попробуйте позже.");
         });
     }
-  }, [currentUser?.courses, userCourses, user]);  
+  }, [currentUser?.courses, userCourses, user]);
 
   return (
     <div className="container">
@@ -94,11 +94,18 @@ export const Account = () => {
       </div>
 
       {userCourses.length > 0 && (
-        <div className="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8">
-          {userCourses.map((course, index) => (
-            <MyCard course={course} key={index+1} />
-          ))}
-        </div>
+        <>
+          <div className="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8">
+            {userCourses.map((course, index) => (
+              <MyCard course={course} key={index + 1} />
+            ))}
+          </div>
+          <div className="flex justify-end md:justify-center ">
+            <button className="btn-primary w-32">
+              <a href="#top">Наверх ↑</a>
+            </button>
+          </div>
+        </>
       )}
 
       {userCourses.length === 0 && (
@@ -114,12 +121,6 @@ export const Account = () => {
           </button>
         </>
       )}
-
-      <div className="flex justify-end md:justify-center ">
-        <button className="btn-primary w-32">
-          <a href="#top">Наверх ↑</a>
-        </button>
-      </div>
     </div>
   );
 };

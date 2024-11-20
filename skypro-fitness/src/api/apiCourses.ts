@@ -189,8 +189,7 @@ export const addExerciseProgressToUser = async (
       });
     } else {
       await update(docRef, {
-        [`courses/${courseId}/workouts/${workoutId}/exercises/${exerciseId}`]:
-          exerciseId,
+        [`courses/${courseId}/workouts/${workoutId}/exercises/${exerciseId}/progressWorkout`]: 0,
       });
     }
   } catch (error) {
@@ -207,7 +206,6 @@ export const addWorkoutProgressToUser = async (
 ) => {
   try {
     const docRef = ref(db, `users/${uid}`);
-    console.log(courseId);
     if (workoutProgress) {
       await update(docRef, {
         [`courses/${courseId}/workouts/${workoutId}/progressWorkout`]:

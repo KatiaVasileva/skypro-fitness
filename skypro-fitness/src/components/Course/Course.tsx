@@ -80,7 +80,7 @@ function Course({ courseId }: { courseId: string | undefined }) {
           <div
             className={`relative h-[389px] ${color} rounded-3xl bg-cover bg-center p-4 md:h-80`}
           >
-            <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible z-50 absolute">
+            <h3 className="text-6xl text-white font-medium leading-tight text-left p-10 invisible md:visible z-30 absolute">
               {course[0].nameRU}
             </h3>
 
