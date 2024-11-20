@@ -22,31 +22,29 @@ function AddProgress({ courseId, workoutId }: AddProgressPropsType) {
     navigate("/workout/" + courseId + "/" + workoutId);
   };
 
-  const handleSaveButton = () => {
+  const handleSaveButton = async () => {
+    let allExercicesCompleted = true;
+
     if (user && exercises) {
-      let exercisesCompleted: number = 0;
-      exercises.forEach((exercise) => {
-        addExerciseProgressToUser(
+
+      for (const exercise of exercises) {
+        await addExerciseProgressToUser(
           user.uid,
           workoutId,
           courseId,
           exercise.name,
           exercise.progressWorkout
         );
-        if (exercise.progressWorkout >= exercise.quantity) {
-          exercisesCompleted += 1;
+
+        if (exercise.progressWorkout < exercise.quantity) {
+          allExercicesCompleted = false;
         }
-      });
-      if (exercisesCompleted === exercises.length) {
-        navigate("/workout/" + courseId + "/" + workoutId + "/counted");
-      } else {
-        navigate("/workout/" + courseId + "/" + workoutId);
       }
-    }
-    if (user && exercises.length === 0) {
-      const progress = 100;
-      addWorkoutProgressToUser(user.uid, workoutId, courseId, progress);
-      navigate("/workout/" + courseId + "/" + workoutId + "/counted");
+    };
+
+    if (allExercicesCompleted) {
+        await addWorkoutProgressToUser(user?.uid, workoutId, courseId, 100);
+        navigate("/workout/" + courseId + "/" + workoutId + "/counted");
     }
   };
 
