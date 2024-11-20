@@ -3,7 +3,7 @@
 exports[`ProgressCounted component renders correctly 1`] = `
 <div>
   <div
-    class="w-full h-full overflow-x-hidden fixed z-10 bg-dark-gray/50 top-0 left-0"
+    class="w-full h-full overflow-x-hidden fixed z-10 bg-dark-gray/50 top-0 left-0 cursor-pointer"
   >
     <div
       class="block w-screen min-h-screen mx-auto my-0"
