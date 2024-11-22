@@ -1,175 +1,126 @@
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../hooks/useUserContext";
+import { useEffect, useState } from "react";
+import { AppRoutes } from "../../lib/appRoutes";
+import { getCourses, getUser } from "../../api/apiCourses";
+import MyCard from "../MyCard/MyCard";
+import { UserType } from "../../types/UserType.type";
+import { CourseType } from "../../types/CourseType.type";
+
 export const Account = () => {
-    return (
-      <>
-        <div className="container">
-          <div className="w-full min-h-screen ">
-            {/* Профиль */}
-            <div>
-              <div>
-                <div className="mb-10 md:mt-16">
-                  <p className="text-[40px] font-bold">Профиль</p>
-                </div>
-  
-                <div className="bg-white flex items-center justify-between mb-6 rounded-3xl shadow-md">
-                  <div className="flex items-center space-x-6">
-                    <div className="py-7 pl-7">
-                      <img src="/img/profile2.png" alt="Аватар"/>
-                    </div>
-                    <div className="flex-col flex gap-[30px]">
-                      <div className="flex flex-col gap-[10px]">
-                        <p className="text-black text-3xl font-medium mb-7">
-                          Сергей
-                        </p>
-                        <div>
-                          <p className="text-gray-600">Логин: sergey.petrov96</p>
-                          <p className="text-gray-600">Пароль: 4fKhdj880d</p>
-                        </div>
-                      </div>
-  
-                      <div className="flex space-x-4">
-                        <button className="bg-green text-black px-6 py-2 rounded-full transition hover:bg-lime-500">
-                          Изменить пароль
-                        </button>
-                        <button className="bg-white text-black px-12 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition">
-                          Выйти
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              {/* Курсы */}
-              <div className="mt-8 mb-10">
-                <div className="mt-14 mb-10 rounded-lg">
-                  <p className="text-[40px] font-bold">Мои курсы</p>
-                </div>
-  
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Йога */}
-                  <div className="flex flex-col gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md">
-                    <img className="w-full" src="/img/workout_1.png" />
-                    <img
-                      className="absolute top-4 right-4"
-                      src="/img/remove.png"
-                    />
-                    <div className="mx-7">
-                      <h3 className="text-3xl font-semibold pb-6 text-black">
-                        Йога
-                      </h3>
-                      <div className="flex flex-row flex-wrap gap-1 mb-2">
-                        <div className="flex flex-row flex-wrap gap-2 w-28 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/calendar.png"></img>
-                          <p className="text-black">25 дней</p>
-                        </div>
-                        <div className="flex flex-row gap-2 w-44 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/time.png"></img>
-                          <p className="text-black">20-50 мин/день</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-row gap-2 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-2">
-                        <img className="h-4 w-4" src="/img/difficulty.png"></img>
-                        <p className="text-black">Сложность</p>
-                      </div>
-                      <div className="p-4 mt-4">
-                        <p className="text-gray-600">Прогресс 40%</p>
-                        <div className="w-[300px] bg-light-gray rounded-full h-2.5 mt-1">
-                          <div
-                            className="bg-blue h-2.5 rounded-full"
-                            style={{ width: "40%" }}
-                          ></div>
-                        </div>
-                      </div>
-                      <button className="bg-green mb-3 text-black w-full py-3 rounded-[46px] mt-4 hover:bg-lime-500 transition">
-                        Продолжить
-                      </button>
-                    </div>
-                  </div>
-  
-                  {/* Стретчинг */}
-                  <div className="flex flex-col gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md">
-                    <img className="w-full" src="/img/workout_2.png" />
-                    <img
-                      className="absolute top-4 right-4"
-                      src="/img/remove.png"
-                    />
-                    <div className="mx-7">
-                      <h3 className="text-3xl font-semibold pb-6 text-black">
-                        Стретчинг
-                      </h3>
-                      <div className="flex flex-row flex-wrap gap-1 mb-2">
-                        <div className="flex flex-row flex-wrap gap-2 w-28 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/calendar.png"></img>
-                          <p className="text-black">25 дней</p>
-                        </div>
-                        <div className="flex flex-row gap-2 w-44 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/time.png"></img>
-                          <p className="text-black">20-50 мин/день</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-row gap-2 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-2">
-                        <img className="h-4 w-4" src="/img/difficulty.png"></img>
-                        <p className="text-black">Сложность</p>
-                      </div>
-                      <div className="p-4 mt-4">
-                        <p className="text-gray-600">Прогресс 0%</p>
-                        <div className="w-[300px] bg-light-gray rounded-full h-2.5 mt-1">
-                          <div
-                            className="bg-blue h-2.5 rounded-full"
-                            style={{ width: "0%" }}
-                          ></div>
-                        </div>
-                      </div>
-                      <button className="bg-green mb-3 text-black w-full py-3 rounded-[46px] mt-4 hover:bg-lime-500 transition">
-                        Начать тренировки
-                      </button>
-                    </div>
-                  </div>
-  
-                  {/* Зумба */}
-                  <div className="flex flex-col gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md">
-                    <img className="w-full" src="/img/workout_3.png" />
-                    <img
-                      className="absolute top-4 right-4"
-                      src="/img/remove.png"
-                    />
-                    <div className="mx-7">
-                      <h3 className="text-3xl font-semibold pb-6 text-black">
-                        Зумба
-                      </h3>
-                      <div className="flex flex-row flex-wrap gap-1 mb-2">
-                        <div className="flex flex-row flex-wrap gap-2 w-28 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/calendar.png"></img>
-                          <p className="text-black">25 дней</p>
-                        </div>
-                        <div className="flex flex-row gap-2 w-44 h-9 bg-light-gray rounded-3xl items-center pl-2.5">
-                          <img className="h-4 w-4" src="./img/time.png"></img>
-                          <p className="text-black">20-50 мин/день</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-row gap-2 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-2">
-                        <img className="h-4 w-4" src="/img/difficulty.png"></img>
-                        <p className="text-black">Сложность</p>
-                      </div>
-                      <div className="p-4 mt-4">
-                        <p className="text-gray-600">Прогресс 100%</p>
-                        <div className="w-[300px] bg-light-gray rounded-full h-2.5 mt-1">
-                          <div
-                            className="bg-blue h-2.5 rounded-full"
-                            style={{ width: "100%" }}
-                          ></div>
-                        </div>
-                      </div>
-                      <button className="bg-green mb-3 text-black w-full py-3 rounded-[46px] mt-4 hover:bg-lime-500 transition">
-                        Начать заново
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  const { user, logout } = useUserContext();
+  const navigate = useNavigate();
+  const [userCourses, setUserCourses] = useState<Array<CourseType>>([]);
+  const [currentUser, setCurrentUser] = useState<UserType>();
+
+  const handleResetPassword = async () => {
+    navigate(AppRoutes.RESET);
+  };
+
+  const handleLogoutButton = () => {
+    logout();
+    navigate(AppRoutes.MAIN);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUser(user?.uid).then((user) => {
+        setCurrentUser(user);
+      });
+    }
+  });
+
+  useEffect(() => {
+    if (user) {
+      getCourses()
+        .then((allCourses) => {
+          if (currentUser?.courses) {
+            const courseIds = Object.keys(currentUser.courses);
+            const courses = allCourses.filter((course) =>
+              courseIds.includes(course._id.toString())
+            );
+            setUserCourses(courses);
+          } else {
+            setUserCourses([]);
+          }
+        })
+        .catch(() => {
+          console.log("Не удалось загрузить данные, попробуйте позже.");
+        });
+    }
+  }, [currentUser?.courses, userCourses, user]);
+
+  return (
+    <div className="container">
+      <div className="mt-10 mb:mt-14 mb-7 md:mb-10">
+        <p className="text-[24px] md:text-[40px] font-semibold">Профиль</p>
+      </div>
+      <div className="flex flex-col md:flex-row min-h-64 md:h-64 min-w-[323px] bg-white rounded-3xl shadow-md items-center">
+        <div className="py-7 md:pl-7">
+          <img
+            src="/img/profile2.png"
+            className="w-[141px] h-[141px] md:w-[197px] md:h-[197px]"
+          />
+        </div>
+        <div className="h-50 min-w-[283px] py-7 md:pl-10">
+          <p className="text-black text-2xl md:text-3xl font-medium mb-7">
+            {user?.displayName}
+          </p>
+          <p className="text-black text-base md:text-lg font-normal">
+            Логин: {user?.email}
+          </p>
+          <p className="text-black text-base md:text-lg font-normal">
+            Пароль: ********
+          </p>
+          <div className="flex flex-col md:flex-row gap-3 mt-7">
+            <button
+              className="btn-primary md:w-[200px] h-14 text-black"
+              onClick={handleResetPassword}
+            >
+              Изменить пароль
+            </button>
+            <button
+              className="btn-primary-white md:w-[192px] h-14"
+              onClick={handleLogoutButton}
+            >
+              Выйти
+            </button>
           </div>
         </div>
-      </>
-    );
-  };
+      </div>
+
+      <div className="mt-10 md:mt-14 mb-7 md:mb-10">
+        <p className="text-[24px] md:text-[40px] font-semibold">Мои курсы</p>
+      </div>
+
+      {userCourses.length > 0 && (
+        <>
+          <div className="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8">
+            {userCourses.map((course, index) => (
+              <MyCard course={course} key={index + 1} />
+            ))}
+          </div>
+          <div className="flex justify-end md:justify-center ">
+            <button className="btn-primary w-32">
+              <a href="#top">Наверх ↑</a>
+            </button>
+          </div>
+        </>
+      )}
+
+      {userCourses.length === 0 && (
+        <>
+          <p className="mb-10 text-xl md:text-2xl font-medium">
+            У вас нет приобретенных курсов.
+          </p>
+          <button
+            className="btn-primary w-full md:w-[252px] h-[52px] "
+            onClick={() => navigate(AppRoutes.MAIN)}
+          >
+            Перейти на главную
+          </button>
+        </>
+      )}
+    </div>
+  );
+};

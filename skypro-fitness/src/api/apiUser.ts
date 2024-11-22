@@ -1,97 +1,86 @@
-// Типы данных пользователя
-import { RegType, UserType } from "../types/user";
-import { app, auth } from "../lib/firebaseConfig"
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
+import { app, auth } from "../lib/firebaseConfig";
+import { UserType } from "../types/UserType.type";
+import { get, getDatabase, ref, set } from "firebase/database";
 import { FirebaseError } from "firebase/app";
 
-// Типы аргументов и ответа функции
 type LoginCredentials = {
   login: string;
   password: string;
 };
 
-const database = getDatabase(app);
+const db = getDatabase(app);
 
-// Зарегестрироваться
-export async function regUser({
-  email,
-  password,
-}: RegType) {
+export async function regUser({ email, password, username }: UserType) {
   try {
-    // Создаем пользователя с email и паролем
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
-      password,
+      password
     );
     const uid = userCredential.user.uid;
 
-    // Обновляем профиль пользователя, чтобы установить displayName
-    // await updateProfile(userCredential.user, {
-    //   displayName: username,
-    // });
+    await updateProfile(userCredential.user, {
+      displayName: username,
+    });
 
-    // Сохраняем информацию о пользователе в Realtime Database  
-    await set(ref(database, "users/" + uid), {
+    const user = userCredential.user;
+
+    await set(ref(db, 'users/' + uid), {
       uid: uid,
       email: email,
+      username: username,
+      courses: [],
+      workouts: [],
     });
 
-    // Получаем информацию о пользователе из базы данных
-    const snapshot = await get(child(ref(database), `users/${uid}`));
-    return snapshot.val();
-    
+    return user;
   } catch (error) {
-    // Проверяем, является ли error экземпляром FirebaseError и имеет код ошибки
-    if (error instanceof FirebaseError && error.code === "auth/email-already-in-use") {
-      throw new Error("Данная почта уже используется");
+    if (
+      error instanceof FirebaseError &&
+      error.code === 'auth/email-already-in-use'
+    ) {
+      throw new Error('Данная почта уже используется');
     } else {
-      throw new Error("Произошла ошибка при регистрации. Попробуйте снова.");
+      throw new Error('Произошла ошибка при регистрации. Попробуйте снова.');
     }
   }
 }
 
-
-export const loginUser = async (credentials: LoginCredentials): Promise<UserType> => {
+export async function loginUser(credentials: LoginCredentials) {
   try {
-    const response = await fetch("https://example.com/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    if (!response.ok) {
-      throw new Error("Неверные данные для входа");
-    }
-
-    const userData: UserType = await response.json();
-    return userData;
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      credentials.login,
+      credentials.password
+    );
+    const user = userCredentials.user
+  return user;
   } catch (error) {
-    console.error("Ошибка при входе:", error);
-    throw error;
+    if (
+      error instanceof Error 
+    ) {
+      throw new Error('Введены неверные данные');
+    } else {
+      throw new Error('Произошла ошибка при авторизации. Попробуйте снова.');
+    }
   }
+}
+
+export const logout = async () => {
+  await signOut(auth);
 };
 
-export async function handlePasswordReset(email: string) {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    console.log(`Ссылка для восстановления пароля отправлена на ${email}`);
-  } catch (error) {
-    console.error("Ошибка при отправке письма для сброса пароля:", error);
+export const getUserData = async (uid: string) => {
+  const userDoc = await get(ref(db, `users/${uid}`));
+  if (userDoc.exists()) {
+    return userDoc.val();
+  } else {
+    return null;
   }
-}
-
-// Сменить пароль
-export async function changePassword(password: string) {
-  try {
-    if (!auth.currentUser) {
-      throw new Error("Нет авторизации");
-    }
-    await updatePassword(auth.currentUser, password);
-  } catch (error) {
-    if (error instanceof Error) throw new Error(error.message);
-  }
-}
+};

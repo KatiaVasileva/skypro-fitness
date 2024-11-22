@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders correctly 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <div
+      class="h-50 flex flex-row items-center place-content-between mb-3"
+    >
+      <img
+        alt="logo"
+        class="h-[35px] w-[220px] cursor-pointer"
+        src="/img/logo.png"
+      />
+      <button
+        class="btn-primary md:w-26 h-9 md:h-13"
+      >
+        Войти
+      </button>
+    </div>
+    <p
+      class="hidden md:block md:text-lg/5 md:font-normal  md:text-gray "
+    >
+      Онлайн-тренировки для занятий дома
+    </p>
+  </div>
+</div>
+`;

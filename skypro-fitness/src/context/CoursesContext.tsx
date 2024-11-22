@@ -1,25 +1,37 @@
-import { createContext, useState } from "react";
-import { CourseType } from "../types/courses.ts";
+import { createContext, useEffect, useState } from "react";
+import { CourseType } from "../types/CourseType.type";
+import {
+  getCoursesFromLocalStorage,
+  saveCoursesToLocalStorage,
+} from "../lib/helpers";
 
-type ProviderProps = {
+type CoursesProviderProps = {
   children: React.ReactNode;
 };
 
-type ContextCoursesType = {
-  courses: CourseType[] | null;
+type CoursesContextData = {
+  courses: Array<CourseType>;
   loading: boolean;
   error: string | null;
-  setCourses: (prevState: CourseType[]) => void;
+  setCourses: (courses: Array<CourseType>) => void;
   setLoading: (prevState: boolean) => void;
   setError: (prevState: string | null) => void;
 };
 
-export const CoursesContext = createContext<ContextCoursesType | null>(null);
+export const CoursesContext = createContext<CoursesContextData | null>(null);
 
-export default function CoursesProvider({ children }: ProviderProps) {
-  const [courses, setCourses] = useState<CourseType[]>([]);
+export default function CoursesProvider({ children }: CoursesProviderProps) {
+  const [courses, setCourses] = useState<Array<CourseType>>(
+    getCoursesFromLocalStorage
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (courses) {
+      saveCoursesToLocalStorage(courses);
+    }
+  }, [courses]);
 
   return (
     <CoursesContext.Provider

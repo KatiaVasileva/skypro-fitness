@@ -1,11 +1,19 @@
 import Routing from "./components/Routing/Routing";
-import UserProvider from "./context/UserContext.tsx";
+import CoursesProvider from "./context/CoursesContext";
+import UserProvider from "./context/UserContext";
+import WorkoutProvider from "./context/WorkoutContext";
 
 function App() {
   return (
-  <UserProvider>
-    <Routing />
-  </UserProvider>
+    <>
+      <UserProvider>
+        <CoursesProvider>
+          <WorkoutProvider>
+            <Routing />
+          </WorkoutProvider>
+        </CoursesProvider>
+      </UserProvider>
+    </>
   );
 }
 

@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    @apply w-full h-full font-sans bg-light-gray m-0 p-0 box-border;
+  html,
+  body {
+    @apply w-full h-full font-sans bg-light-gray m-0 p-0 box-border scroll-smooth;
   }
-  
+
   #root {
-    @apply max-w-80 md:max-w-2xl lg:max-w-4xl xl:max-w-6xl font-normal my-0 mx-auto py-8 px-0;
+    @apply max-w-[343px] md:max-w-2xl lg:max-w-4xl xl:max-w-6xl font-normal my-0 mx-auto py-8 px-0;
   }
 
   h1 {
@@ -28,6 +29,14 @@
   .btn-primary {
     @apply rounded-3xl px-4 md:px-6 py-1 text-lg text-black font-normal bg-green hover:bg-light-green cursor-pointer shadow-md;
   }
+
+  .btn-primary-white {
+    @apply rounded-3xl px-4 md:px-5 text-lg text-black font-normal bg-white hover:bg-light-gray border border-black cursor-pointer shadow-md;
+  }
+
+  .input-class {
+    @apply h-[52px] w-[280px] bg-white px-[18px] py-4 rounded-lg border-[0.7px] border-solid border-[rgba(148,166,190,0.4)] mb-2.5 placeholder:font-normal placeholder:text-lg placeholder:text-[#94a6be] focus:outline-none;
+  }
 }
 
 @layer utilities {
@@ -45,9 +54,8 @@
     border-radius: 10px;
   }
 
-.line{
-  width: 320px;
-  border: 1px solid #38383629;
- }
-
+  .line {
+    width: 320px;
+    border: 1px solid #C4C4C4;
+  }
 }

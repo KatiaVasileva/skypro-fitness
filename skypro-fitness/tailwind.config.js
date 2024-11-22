@@ -2,21 +2,33 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ["Roboto", "sans-serif"],
-      },
-      colors: {
-        gray: "#999999",
-        "light-gray": "#F7F7F7",
-        green: "#BCEC30",
-        "light-green": "#C6FF00",
-        "blue": "#00C1FF"
-      },
-    },
     container: {
       center: true,
+    },
+    fontFamily: {
+      sans: ["Roboto", "sans-serif"],
+    },
+    extend: {
+      colors: {
+        "pale-gray": "C4C4C4",
+        "light-gray": "#F7F7F7",
+        "dark-gray": "#151720",
+        "grayish": "FAFAFA",
+        "green": "#BCEC30",
+        "light-green": "#C6FF00",
+        "blue": "#00C1FF",
+        "gray": "#999999",
+        "black": "#000000",
+        "white": "#FFFFFF",
+        "white-gray": "#D0CECE",
+        "yellow": "#FFC700",
+        "salmon": "#FF7E65",
+        "purple": "#7D458C",
+        "orange": "#F7A012",
+        "blueDark": "#2491D2",
+      },
     },
   },
   plugins: [],
 };
+

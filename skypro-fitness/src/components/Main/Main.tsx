@@ -1,13 +1,42 @@
-import { cards } from "../../lib/data";
+import { useEffect } from "react";
 import Card from "../Card/Card";
+import { getCourses, getWorkouts } from "../../api/apiCourses";
+import { useCoursesContext } from "../../hooks/useCoursesContext";
+import { saveCoursesToLocalStorage, saveWorkoutsToLocalStorage } from "../../lib/helpers";
+import { useWorkoutContext } from "../../hooks/useWorkoutContext";
+
 
 function Main() {
-  
+  const { courses, setCourses } = useCoursesContext();
+  const {setWorkouts} = useWorkoutContext();
+
+  useEffect(() => {
+    getCourses()
+      .then((allCourses) => {
+        saveCoursesToLocalStorage(allCourses);
+        setCourses(allCourses);
+      })
+      .catch(() => {
+        console.log("Не удалось загрузить данные, попробуйте позже.");
+      });
+  }, [setCourses]);
+
+  useEffect(() => {
+    getWorkouts()
+      .then((allWorkouts) => {
+        saveWorkoutsToLocalStorage(allWorkouts);
+        setWorkouts(allWorkouts);
+      })
+      .catch(() => {
+        console.log("Не удалось загрузить данные, попробуйте позже.");
+      });
+  }, [setWorkouts]);
+
   return (
     <div className="container">
-      <div className="flex flex-row mt-2 md:mt-16 h-30 gap-4">
+      <div className="flex flex-row mt-10 md:mt-16 h-30 gap-4">
         <div className="h-30 basis-full md:basis-3/4">
-          <h1 className="">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-medium text-black">
             Начните заниматься спортом и улучшите качество жизни
           </h1>
         </div>
@@ -23,8 +52,8 @@ function Main() {
       </div>
 
       <div className="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8">
-        {cards.map((course) => (
-          <Card course={course} key={course.id} />
+        {courses.map((course) => (
+          <Card course={course} key={course._id} />
         ))}
       </div>
 
@@ -38,4 +67,3 @@ function Main() {
 }
 
 export default Main;
-

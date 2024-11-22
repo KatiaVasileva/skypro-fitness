@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main component renders correctly 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <div
+      class="flex flex-row mt-10 md:mt-16 h-30 gap-4"
+    >
+      <div
+        class="h-30 basis-full md:basis-3/4"
+      >
+        <h1
+          class="text-3xl md:text-4xl lg:text-6xl font-medium text-black"
+        >
+          Начните заниматься спортом и улучшите качество жизни
+        </h1>
+      </div>
+      <div
+        class="hidden md:block h-25 basis-0 md:basis-1/4 relative"
+      >
+        <div
+          class="bg-green text-3xl p-5 md:w-72 h-25 rounded mb-12 text-black"
+        >
+          Измени своё тело за полгода!
+        </div>
+        <img
+          class="absolute top-[100px] left-[120px] z-10"
+          src="/img/triangle.png"
+        />
+      </div>
+    </div>
+    <div
+      class="flex flex-row flex-wrap gap-4 md:gap-9 mb-8 mt-9 md:mt-8"
+    />
+    <div
+      class="flex justify-end md:justify-center "
+    >
+      <button
+        class="btn-primary w-32"
+      >
+        <a
+          href="#top"
+        >
+          Наверх ↑
+        </a>
+      </button>
+    </div>
+  </div>
+</div>
+`;

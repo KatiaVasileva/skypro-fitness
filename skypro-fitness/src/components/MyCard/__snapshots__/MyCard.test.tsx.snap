@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyCard component renders correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col w-[343px] gap-7 bg-white rounded-3xl relative cursor-pointer shadow-md"
+  >
+    <img
+      class="w-full"
+      src="/img/workout_0.png"
+    />
+    <img
+      class="absolute top-4 right-4"
+      src="/img/circle-minus.png"
+    />
+    <div
+      class="mx-6"
+    >
+      <h3
+        class="text-3xl font-semibold pb-6 text-black"
+      />
+      <div
+        class="flex flex-row flex-wrap gap-1 mb-2"
+      >
+        <div
+          class="flex flex-row flex-wrap gap-1 w-[103px] h-9 bg-light-gray rounded-3xl items-center pl-2.5"
+        >
+          <img
+            class="h-4 w-4"
+            src="/img/calendar_0.png"
+          />
+          <p
+            class="text-black text-[16px]"
+          />
+        </div>
+        <div
+          class="flex flex-row gap-1 w-[160px] h-9 bg-light-gray rounded-3xl items-center pl-2.5"
+        >
+          <img
+            class="h-4 w-4"
+            src="/img/time_0.png"
+          />
+          <p
+            class="text-black"
+          />
+        </div>
+      </div>
+      <div
+        class="flex flex-row gap-1 w-32 h-9 bg-light-gray rounded-3xl items-center pl-2.5 mb-9"
+      >
+        <img
+          class="h-4 w-4"
+          src="/img/difficulty_0.png"
+        />
+        <p
+          class="text-black"
+        >
+          Сложность
+        </p>
+      </div>
+      <div
+        class="mt-4 mb-9"
+      >
+        <p
+          class="text-gray-600"
+        >
+          Прогресс 
+          0
+          %
+        </p>
+        <progress
+          class="h-1.5 w-[270px] [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[#F7F7F7] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[#00C1FF]"
+          max="100"
+          value="0"
+        />
+      </div>
+      <button
+        class="btn-primary w-full h-12 mb-5"
+      >
+        Начать тренировки
+      </button>
+    </div>
+  </div>
+</div>
+`;

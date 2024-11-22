@@ -1,0 +1,32 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import * as router from "react-router";
+import UserProvider from "../../context/UserContext";
+import CoursesProvider from "../../context/CoursesContext";
+import { BrowserRouter } from "react-router-dom";
+import Reset from "./Reset";
+
+const navigate = jest.fn();
+
+describe("Reset component", () => {
+  beforeEach(() => {
+    jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
+  });
+
+  it("renders correctly", () => {
+    const { container } = render(
+      <BrowserRouter>
+        <UserProvider>
+          <CoursesProvider>
+            <Reset />
+          </CoursesProvider>
+        </UserProvider>
+      </BrowserRouter>
+    );
+    expect(container).toMatchSnapshot();
+  });
+});
